@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 30),
               Center(child: SvgPicture.asset(AppImages.loginLogo)),
               SizedBox(height: 50),
               Text("Welcome Back", style: AppTextStyles.heading3),
@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 "Login to your account",
                 style: AppTextStyles.heading7.copyWith(color: Colors.grey),
               ),
-              SizedBox(height: 60),
+              SizedBox(height: 40),
               CustomTextfield(
                 label: "Email",
                 hintText: "name@gmail.com",
