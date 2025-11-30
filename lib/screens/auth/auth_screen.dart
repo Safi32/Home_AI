@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:home_ai/constants/images.dart';
+import 'package:home_ai/screens/auth/login_screen.dart';
+import 'package:home_ai/utils/colors.dart';
+import 'package:home_ai/widgets/custom_button.dart';
+import 'package:home_ai/widgets/custom_divider.dart';
+import 'package:home_ai/widgets/login_google.dart';
+
+class AuthScreen extends StatelessWidget {
+  const AuthScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                SvgPicture.asset(AppImages.signUp),
+                Positioned(
+                  bottom: 80,
+                  left: 20,
+                  child: Text(
+                    "Your Home, \n Powered By Real-Time \n Intelligence",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                children: [
+                  CustomButton(
+                    title: "Log In",
+                    onPressed: () {
+                      Get.to(() => const LoginScreen());
+                    },
+                    backgroundColor: AppColors.primary,
+                    textColor: Colors.white,
+                    foregroundColor: Colors.white,
+                  ),
+                  SizedBox(height: 12),
+                  CustomButton(
+                    title: "Sign Up",
+                    onPressed: () {},
+                    backgroundColor: AppColors.background,
+                    textColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                  ),
+                  SizedBox(height: 20),
+                  CustomDivider(),
+                  SizedBox(height: 20),
+                LoginGoogle()
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
