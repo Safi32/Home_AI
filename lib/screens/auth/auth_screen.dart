@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/screens/auth/login_screen.dart';
+import 'package:home_ai/screens/auth/sign_up_screen.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/custom_button.dart';
 import 'package:home_ai/widgets/custom_divider.dart';
@@ -20,7 +20,7 @@ class AuthScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                SvgPicture.asset(AppImages.signUp),
+                Image.asset(AppImages.signUp),
                 Positioned(
                   bottom: 80,
                   left: 20,
@@ -35,7 +35,7 @@ class AuthScreen extends StatelessWidget {
                 ),
               ],
             ),
-
+            SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
@@ -43,7 +43,7 @@ class AuthScreen extends StatelessWidget {
                   CustomButton(
                     title: "Log In",
                     onPressed: () {
-                      Get.to(() => const LoginScreen());
+                      Get.to(() => LoginScreen());
                     },
                     backgroundColor: AppColors.primary,
                     textColor: Colors.white,
@@ -52,7 +52,9 @@ class AuthScreen extends StatelessWidget {
                   SizedBox(height: 12),
                   CustomButton(
                     title: "Sign Up",
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => SignUpScreen());
+                    }, 
                     backgroundColor: AppColors.background,
                     textColor: AppColors.primary,
                     foregroundColor: Colors.white,
@@ -60,7 +62,7 @@ class AuthScreen extends StatelessWidget {
                   SizedBox(height: 20),
                   CustomDivider(),
                   SizedBox(height: 20),
-                LoginGoogle()
+                  LoginGoogle(),
                 ],
               ),
             ),
