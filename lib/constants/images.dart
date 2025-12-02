@@ -10,4 +10,22 @@ class AppImages {
   static const logo = "assets/images/logo.png";
   static const onboarding2 = "assets/images/onboarding2.png";
   static const onboarding3 = "assets/images/onboarding3.png";
+  static const camera = "assets/images/camera.png";
+  static const microphone = "assets/images/microphone.png";
+  static const bell = "assets/images/bell.png";
+  static const cookies = "assets/images/cookie.png";
+  static const home = "assets/images/home.png";
+  static const playCircle = "assets/images/play-circle.png";
+  static const timeFast = "assets/images/time-fast.png";
+  static const sparkles = "assets/images/sparkles.png";
+  static const menu = "assets/images/menu.png";
+  static const notification = "assets/images/notification.png";
+  static const greenCircle = "assets/images/green_circle.png";
+  static const grayCircle = "assets/images/gray_circle.png";
+  static const redCircle = "assets/images/red_circle.png";
+  static const crossSmall = "assets/images/cross-small.png";
+  static const yellowCircle = "assets/images/yellow_circle.png";
+  static const polygon = "assets/images/polygon.png";
+  static const blueCircle = "assets/images/blue_circle.png";
+  static const outline = "assets/images/outline_circle.png";
 }

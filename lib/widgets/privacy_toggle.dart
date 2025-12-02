@@ -1,7 +1,9 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:home_ai/constants/text_styles.dart';
+import 'package:home_ai/utils/colors.dart';
 
 class PrivacyToggle extends StatelessWidget {
-  final IconData icon;
+  final String imageUrl;
   final String title;
   final String subtitle;
   final bool value;
@@ -9,57 +11,46 @@ class PrivacyToggle extends StatelessWidget {
 
   const PrivacyToggle({
     super.key,
-    required this.icon,
     required this.title,
     required this.subtitle,
     required this.value,
     this.onChanged,
+    required this.imageUrl,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: Colors.blue, size: 28),
+          Image.asset(imageUrl),
           const SizedBox(width: 16),
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    Switch(
-                      value: value,
-                      onChanged: onChanged,
-                      activeColor: Colors.blue,
-                    ),
-                  ],
+               
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: AppTextStyles.heading4.fontSize,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-
                 const SizedBox(height: 4),
-
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Colors.black54,
-                  ),
+                  style: const TextStyle(fontSize: 13, color: Colors.black54),
                 ),
               ],
             ),
+          ),
+          Switch(
+            value: value,
+            onChanged: onChanged,
+            activeThumbColor: AppColors.primary,
           ),
         ],
       ),
