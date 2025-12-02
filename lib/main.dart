@@ -5,7 +5,7 @@ import 'package:home_ai/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
+  await GetStorage.init(); 
   runApp(MyApp());
 }
 

@@ -6,4 +6,8 @@ class AppImages {
   static const welcomeScreen = "assets/images/Welcome screen.png";
   static const onBoarding = "assets/images/onBoarding.jpg";
   static const group = "assets/images/Group.png";
+  static const splashScreen = "assets/images/splash.png";
+  static const logo = "assets/images/logo.png";
+  static const onboarding2 = "assets/images/onboarding2.png";
+  static const onboarding3 = "assets/images/onboarding3.png";
 }
