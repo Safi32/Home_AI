@@ -113,30 +113,39 @@ class LoginScreen extends StatelessWidget {
 
                 SizedBox(height: 20),
 
-                /// Login Button
-                Obx(
-                  () => CustomButton(
-                    title: controller.isLoading.value
-                        ? "Logging in..."
-                        : "Continue",
-                    backgroundColor: AppColors.primary,
-                    textColor: Colors.white,
-                    foregroundColor: Colors.white,
-                    onPressed: () async {
-                      if (emailController.text.isEmpty ||
-                          passwordController.text.isEmpty) {}
+                // /// Login Button
+                // Obx(
+                //   () => CustomButton(
+                //     title: controller.isLoading.value
+                //         ? "Logging in..."
+                //         : "Continue",
+                //     backgroundColor: AppColors.primary,
+                //     textColor: Colors.white,
+                //     foregroundColor: Colors.white,
+                //     onPressed: () async {
+                //       if (emailController.text.isEmpty ||
+                //           passwordController.text.isEmpty) {}
 
-                      bool success = await controller.loginUser(
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                      );
+                //       bool success = await controller.loginUser(
+                //         email: emailController.text.trim(),
+                //         password: passwordController.text.trim(),
+                //       );
 
-                      if (success) {
-                        // Navigate to OnBoarding or Home screen
-                        Get.offAll(() => OnBoardingScreen());
-                      }
-                    },
-                  ),
+                //       if (success) {
+                //         // Navigate to OnBoarding or Home screen
+                //         Get.offAll(() => OnBoardingScreen());
+                //       }
+                //     },
+                //   ),
+                // ),
+                CustomButton(
+                  title: "Continue",
+                  backgroundColor: AppColors.primary,
+                  textColor: Colors.white,
+                  foregroundColor: Colors.white,
+                  onPressed: () {
+                    Get.offAll(() => OnBoardingScreen());
+                  },
                 ),
 
                 SizedBox(height: 20),

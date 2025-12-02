@@ -28,4 +28,7 @@ class AppImages {
   static const polygon = "assets/images/polygon.png";
   static const blueCircle = "assets/images/blue_circle.png";
   static const outline = "assets/images/outline_circle.png";
+  static const add = "assets/images/add.png";
+  static const mom = "assets/images/mom.jpg";
+  static const livingRoom = "assets/images/living_room.jpg";
 }

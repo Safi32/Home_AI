@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:home_ai/constants/images.dart';
+import 'package:home_ai/constants/text_styles.dart';
+import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/detections.dart';
+import 'package:home_ai/widgets/user_details.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,6 +16,7 @@ class HomeScreen extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                           Detections(
                             imageUrl1: AppImages.yellowCircle,
                             imageUrl2: AppImages.polygon,
-                            text: "Motion Detected",
+                            text: "M  otion Detected",
                           ),
                           Detections(
                             imageUrl1: AppImages.blueCircle,
@@ -71,8 +75,165 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 40),
+              Text(
+                "Movement & Presence",
+                style: TextStyle(
+                  fontSize: AppTextStyles.heading5.fontSize,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  spacing: 5,
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          height: 101,
+                          width: 81,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: AppColors.primary),
+                          ),
+                          child: Center(child: Image.asset(AppImages.add)),
+                        ),
+                        Text(
+                          "Add New",
+                          style: TextStyle(
+                            fontSize: AppTextStyles.heading7.fontSize,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    UserDetails(
+                      imageUrl: AppImages.mom,
+                      title: "Mom",
+                      subtitle: "Moving now",
+                    ),
+                    UserDetails(
+                      imageUrl: AppImages.mom,
+                      title: "Mom",
+                      subtitle: "Moving now",
+                    ),
+                    UserDetails(
+                      imageUrl: AppImages.mom,
+                      title: "Mom",
+                      subtitle: "Moving now",
+                    ),
+                    UserDetails(
+                      imageUrl: AppImages.mom,
+                      title: "Mom",
+                      subtitle: "Moving now",
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 40),
+              Row(
+                children: [
+                  Text(
+                    "Camera",
+                    style: TextStyle(
+                      fontSize: AppTextStyles.heading5.fontSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    "View All",
+                    style: TextStyle(
+                      fontSize: AppTextStyles.heading7.fontSize,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                  Icon(Icons.arrow_forward, color: AppColors.primary, size: 15),
+                ],
+              ),
               SizedBox(height: 20),
-              Text("Movement & Presence")
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      AppImages.livingRoom,
+                      width: 364,
+                      height: 237,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    left: 12,
+                    right: 12,
+                    bottom: 16,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          height: 42,
+                          width: 344,
+                          decoration: BoxDecoration(
+                            color: const Color(0xBF0F1A2E),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Living Room',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'Poppins',
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  '2 minutes ago',
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.7),
+                                    fontSize: 13,
+                                    fontFamily: 'Poppins',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        Positioned(
+                          right: 10,
+                          top: 0,
+                          bottom: 0,
+                          child: Container(
+                            height: 30,
+                            width: 29,
+                            decoration: BoxDecoration(
+                              color: AppColors.primary,
+                              shape: BoxShape.circle,
+                            ),
+
+                            child: Icon(
+                              Icons.arrow_outward,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+
+
             ],
           ),
         ),
