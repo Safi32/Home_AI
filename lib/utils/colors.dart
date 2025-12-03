@@ -10,4 +10,5 @@ class AppColors {
   static const Color heading1 = Color(0xFF0F1A2E);
   static const Color heading = Color(0xFF3A3A3A);
   static const Color body = Color(0xFF9E9E9E);
+  static const Color lightBlue = Color(0xFFEEF2F8);
 }

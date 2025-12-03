@@ -11,6 +11,7 @@ class Detections extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       spacing: 5,
       children: [
         Image.asset(imageUrl1),

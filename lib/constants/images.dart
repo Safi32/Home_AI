@@ -31,4 +31,22 @@ class AppImages {
   static const add = "assets/images/add.png";
   static const mom = "assets/images/mom.jpg";
   static const livingRoom = "assets/images/living_room.jpg";
+  static const frame = "assets/images/Frame.png";
+  static const sound = "assets/images/sound.png";
+  static const wifi = "assets/images/wifi.png";
+  static const video = "assets/images/video.png";
+  static const live = "assets/images/live.png";
+  static const user = "assets/images/user.png";
+  static const electric = "assets/images/electric.png";
+  static const backyard = "assets/images/backyard.png";
+  static const redVideo = "assets/images/red_video.png";
+  static const accentFrame = "assets/images/accent_frame.png";
+  static const person = "assets/images/person.png";
+  static const paw = "assets/images/paw.png";
+  static const label = "assets/images/label.png";
+  static const cameraIcon = "assets/images/camera_icon.png";
+  static const tick = "assets/images/tick.png";
+  static const vehicle = "assets/images/vehicle.png";
+  static const keys = "assets/images/keys.jpg";
+  static const newspaper = "assets/images/newspaper.jpg";
 }

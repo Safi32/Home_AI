@@ -6,6 +6,7 @@ import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/controller/session_controller.dart';
 import 'package:home_ai/screens/auth/auth_screen.dart';
 import 'package:home_ai/screens/home_screen.dart';
+import 'package:home_ai/widgets/custom_bottom_bar.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
           session.token != null &&
           session.expiryDate != null &&
           session.expiryDate!.isAfter(DateTime.now())) {
-        Get.offAll(() => const HomeScreen());
+        Get.offAll(() => CustomBottomBar());
       } else {
         Get.offAll(() => const AuthScreen());
       }

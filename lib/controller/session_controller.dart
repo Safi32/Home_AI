@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+
 class SessionController {
   SessionController._internal();
 
@@ -37,6 +38,17 @@ class SessionController {
     if (expiryDateString != null) { 
       expiryDate = DateTime.parse(expiryDateString);
     }
+  }
+
+  void saveSession(String userId, String token, DateTime expiryDate) async {
+    const storage = FlutterSecureStorage();
+    await storage.write(key: 'userId', value: userId);
+    await storage.write(key: 'token', value: token);
+    await storage.write(key: 'expiryDate', value: expiryDate.toIso8601String());
+
+    this.userId = userId;
+    this.token = token;
+    this.expiryDate = expiryDate;
   }
 
   void clearSession() async {

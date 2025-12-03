@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:home_ai/constants/images.dart';
+
 import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/utils/colors.dart';
 
@@ -15,9 +15,14 @@ class UserDetails extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 81,
+          height: 101,
           width: 81,
           decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(imageUrl),
+
+              fit: BoxFit.cover,
+            ),
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.accent),
             boxShadow: [
@@ -27,14 +32,6 @@ class UserDetails extends StatelessWidget {
                 offset: Offset(0, 4),
               ),
             ],
-          ),
-          child: ClipOval(
-            child: Image.asset(
-              imageUrl,
-              height: 81,
-              width: 81,
-              fit: BoxFit.cover,
-            ),
           ),
         ),
         Text(

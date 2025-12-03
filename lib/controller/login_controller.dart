@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:home_ai/constants/api_constant.dart';
+import 'package:home_ai/controller/session_controller.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
@@ -10,6 +11,7 @@ class LoginController extends GetxController {
   var isLoading = false.obs;
 
   final GetStorage storage = GetStorage();
+  final session = SessionController.instance;
 
   Future<bool> loginUser({
     required String email,
@@ -25,9 +27,14 @@ class LoginController extends GetxController {
       );
 
       if (response.statusCode == 200) {
+        print("asdads" + response.body);
         final data = jsonDecode(response.body);
-        await storage.write("token", data["token"]);
-        await storage.write("user", data["user"]);
+        session.saveSession(
+          data["user"]["id"].toString(),
+          data["token"],
+          DateTime.now().add(Duration(minutes: 60)),
+        );
+        
 
         Get.snackbar(
           "Success",
