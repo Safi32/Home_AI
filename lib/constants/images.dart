@@ -49,4 +49,8 @@ class AppImages {
   static const vehicle = "assets/images/vehicle.png";
   static const keys = "assets/images/keys.jpg";
   static const newspaper = "assets/images/newspaper.jpg";
+  static const chair = "assets/images/chair.jpg";
+  static const personDetections = "assets/images/person_detections.png";
+  static const personDetection = "assets/images/person_Detection.png";
+  static const askAI = "assets/images/ask_ai.png";
 }

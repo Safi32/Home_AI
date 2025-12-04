@@ -19,8 +19,8 @@ class ObjectSelection extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Container(
-              height: 81,
-              width: 81,
+              height: 65,
+              width: 65,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.primary, width: 3),

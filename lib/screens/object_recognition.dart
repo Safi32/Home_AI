@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/screens/add_new.dart';
+import 'package:home_ai/screens/add_your_object.dart';
 import 'package:home_ai/utils/colors.dart';
+import 'package:home_ai/widgets/custom_button.dart';
 import 'package:home_ai/widgets/object_selection.dart';
-
+import 'package:home_ai/widgets/objects.dart';
 
 class ObjectRecognition extends StatelessWidget {
   const ObjectRecognition({super.key});
@@ -95,17 +96,80 @@ class ObjectRecognition extends StatelessWidget {
                       title: "Vehicle",
                     ),
                     SizedBox(width: 10),
-                     ObjectSelection(
+                    ObjectSelection(
                       imageUrl: AppImages.newspaper,
                       title: "Newspaper",
                     ),
                     SizedBox(width: 10),
-                     ObjectSelection(
-                      imageUrl: AppImages.keys,
-                      title: "Keys",
-                    ),
+                    ObjectSelection(imageUrl: AppImages.keys, title: "Keys"),
                   ],
                 ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Select Objects",
+                style: TextStyle(
+                  fontSize: AppTextStyles.heading4.fontSize,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Objects(),
+
+                  ObjectSelection(
+                    imageUrl: AppImages.vehicle,
+                    title: "Vehicle",
+                  ),
+                  Objects(),
+                  ObjectSelection(
+                    imageUrl: AppImages.vehicle,
+                    title: "Vehicle",
+                  ),
+                  Objects(),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ObjectSelection(
+                    imageUrl: AppImages.vehicle,
+                    title: "Vehicle",
+                  ),
+                  Objects(),
+                  Objects(),
+                  Objects(),
+                  Objects(),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Objects(),
+
+                  ObjectSelection(
+                    imageUrl: AppImages.vehicle,
+                    title: "Vehicle",
+                  ),
+                  Objects(),
+                  ObjectSelection(
+                    imageUrl: AppImages.vehicle,
+                    title: "Vehicle",
+                  ),
+                  Objects(),
+                ],
+              ),
+              SizedBox(height: 30),
+              CustomButton(
+                title: "Complete Setup",
+                onPressed: () {
+                  Get.to(() => const AddYourObject());
+                },
+                backgroundColor: AppColors.primary,
+                textColor: Colors.white,
+                foregroundColor: Colors.white,
               ),
             ],
           ),

@@ -4,9 +4,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/screens/add_new.dart';
+import 'package:home_ai/screens/last_seen_screen.dart';
+import 'package:home_ai/screens/person_movement.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/detections.dart';
 import 'package:home_ai/widgets/live_detections.dart';
+import 'package:home_ai/widgets/location_detection.dart';
 import 'package:home_ai/widgets/row_widget.dart';
 import 'package:home_ai/widgets/todays_activity.dart';
 import 'package:home_ai/widgets/user_details.dart';
@@ -115,21 +118,24 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                       UserDetails(
+                        onPressed: () {
+                          Get.to(() => const LastSeenScreen());
+                        },
+                        imageUrl: AppImages.mom,
+                        title: "Mom",
+                        subtitle: "left 10 mins ago",
+                      ),
+                     
+                      UserDetails(
+                        onPressed: () {
+                          Get.to(() => const PersonMovement());
+                        },
                         imageUrl: AppImages.mom,
                         title: "Mom",
                         subtitle: "Moving now",
                       ),
                       UserDetails(
-                        imageUrl: AppImages.mom,
-                        title: "Mom",
-                        subtitle: "Moving now",
-                      ),
-                      UserDetails(
-                        imageUrl: AppImages.mom,
-                        title: "Mom",
-                        subtitle: "Moving now",
-                      ),
-                      UserDetails(
+                        onPressed: () {},
                         imageUrl: AppImages.mom,
                         title: "Mom",
                         subtitle: "Moving now",
@@ -140,105 +146,10 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 40),
                 RowWidget(title: "Camera", subtitle: "View All"),
                 SizedBox(height: 20),
-                Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        AppImages.livingRoom,
-                        width: 364,
-                        height: 237,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                      top: 16,
-                      right: 16,
-                      child: Row(
-                        children: [
-                          Stack(
-                            alignment: Alignment.topRight,
-                            children: [Image.asset(AppImages.frame)],
-                          ),
-                          SizedBox(width: 10),
-                          Wrap(
-                            spacing: 10,
-                            children: [
-                              Image.asset(AppImages.sound),
-                              Image.asset(AppImages.wifi),
-                              Image.asset(AppImages.video),
-                              Image.asset(AppImages.live),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      left: 12,
-                      right: 12,
-                      bottom: 16,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            height: 42,
-                            width: 344,
-                            decoration: BoxDecoration(
-                              color: const Color(0xBF0F1A2E),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'Living Room',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text(
-                                    '2 minutes ago',
-                                    style: TextStyle(
-                                      color: Colors.white.withOpacity(0.7),
-                                      fontSize: 13,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            right: 10,
-                            top: 0,
-                            bottom: 0,
-                            child: Container(
-                              height: 30,
-                              width: 29,
-                              decoration: BoxDecoration(
-                                color: AppColors.primary,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.arrow_outward,
-                                color: Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                LocationDetection(
+                  backgroundImage: AppImages.livingRoom,
+                  title: "Living Room",
+                  subtitle: "2 minutes ago",
                 ),
                 SizedBox(height: 30),
                 RowWidget(

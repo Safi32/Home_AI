@@ -1,11 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/controller/session_controller.dart';
 import 'package:home_ai/screens/auth/auth_screen.dart';
-import 'package:home_ai/screens/home_screen.dart';
 import 'package:home_ai/widgets/custom_bottom_bar.dart';
 
 
