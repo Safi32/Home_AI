@@ -62,7 +62,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         fit: StackFit.expand,
         children: [
           Image.asset(AppImages.welcomeScreen, fit: BoxFit.cover),
-
           Column(
             children: [
               Expanded(

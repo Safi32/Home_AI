@@ -5,6 +5,7 @@ import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/screens/add_new.dart';
 import 'package:home_ai/screens/last_seen_screen.dart';
+import 'package:home_ai/screens/object_movement.dart';
 import 'package:home_ai/screens/person_movement.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/detections.dart';
@@ -125,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                         title: "Mom",
                         subtitle: "left 10 mins ago",
                       ),
-                     
+
                       UserDetails(
                         onPressed: () {
                           Get.to(() => const PersonMovement());
@@ -135,10 +136,12 @@ class HomeScreen extends StatelessWidget {
                         subtitle: "Moving now",
                       ),
                       UserDetails(
-                        onPressed: () {},
-                        imageUrl: AppImages.mom,
-                        title: "Mom",
-                        subtitle: "Moving now",
+                        onPressed: () {
+                          Get.to(() => const ObjectMovement());
+                        },
+                        imageUrl: AppImages.keys,
+                        title: "Keys",
+                        subtitle: "Moved",
                       ),
                     ],
                   ),
@@ -150,6 +153,15 @@ class HomeScreen extends StatelessWidget {
                   backgroundImage: AppImages.livingRoom,
                   title: "Living Room",
                   subtitle: "2 minutes ago",
+                  showTime: false,
+                  showIcon: true,
+                  icons: [
+                    Image.asset(AppImages.frame),
+                    Image.asset(AppImages.sound),
+                    Image.asset(AppImages.wifi),
+                    Image.asset(AppImages.video),
+                    Image.asset(AppImages.live),
+                  ],
                 ),
                 SizedBox(height: 30),
                 RowWidget(

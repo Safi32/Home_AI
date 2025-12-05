@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/utils/colors.dart';
@@ -8,7 +7,8 @@ import 'package:home_ai/widgets/alerts_widget.dart';
 import 'package:home_ai/widgets/location_detection.dart';
 import 'package:home_ai/widgets/location_history.dart';
 import 'package:home_ai/widgets/todays_activity.dart';
-import 'package:home_ai/widgets/user_details.dart';
+import 'package:home_ai/widgets/top_row.dart';
+import 'package:home_ai/widgets/user_status.dart';
 
 class PersonMovement extends StatelessWidget {
   const PersonMovement({super.key});
@@ -24,63 +24,13 @@ class PersonMovement extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.arrow_back, color: Colors.black),
-                    ),
-
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          "Self",
-                          style: TextStyle(
-                            fontSize: AppTextStyles.heading4.fontSize,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Opacity(opacity: 0, child: Icon(Icons.arrow_back)),
-                  ],
-                ),
+                TopRow(title: "Self", icon: Icons.arrow_back),
                 SizedBox(height: 20),
-                Row(
-                  children: [
-                    UserDetails(imageUrl: AppImages.mom),
-                    SizedBox(width: 20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Kamran Shah",
-                          style: TextStyle(
-                            fontSize: AppTextStyles.heading5.fontSize,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "•",
-                              style: TextStyle(
-                                fontSize: 18,
-                                height: 1.2,
-                                color: AppColors.accent,
-                              ),
-                            ),
-                            SizedBox(width: 5),
-                            Text("Active now", style: TextStyle(fontSize: 13)),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                UserStatus(
+                  userName: "Kamran Shah",
+                  status: "Active now ",
+                  statusColor: AppColors.accent,
+                  imageUrl: AppImages.mom,
                 ),
                 SizedBox(height: 10),
                 Row(

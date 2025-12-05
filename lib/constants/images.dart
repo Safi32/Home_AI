@@ -52,5 +52,5 @@ class AppImages {
   static const chair = "assets/images/chair.jpg";
   static const personDetections = "assets/images/person_detections.png";
   static const personDetection = "assets/images/person_Detection.png";
-  static const askAI = "assets/images/ask_ai.png";
+  
 }

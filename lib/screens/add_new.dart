@@ -6,6 +6,7 @@ import 'package:home_ai/screens/add_new_person.dart';
 import 'package:home_ai/screens/add_new_pet.dart';
 import 'package:home_ai/screens/object_recognition.dart';
 import 'package:home_ai/widgets/add_new_widget.dart';
+import 'package:home_ai/widgets/top_row.dart';
 
 class AddNew extends StatelessWidget {
   const AddNew({super.key});
@@ -19,27 +20,7 @@ class AddNew extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(Icons.arrow_back, color: Colors.black),
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        "Add New",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              TopRow(title: "Add New", icon: Icons.arrow_back),
               SizedBox(height: 50),
               Column(
                 spacing: 10,

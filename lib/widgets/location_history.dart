@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/screens/camera_setting.dart';
+import 'package:home_ai/widgets/ask_ai.dart';
 import 'package:home_ai/widgets/todays_activity.dart';
 
 class LocationHistory extends StatelessWidget {
@@ -36,7 +36,16 @@ class LocationHistory extends StatelessWidget {
                 ],
               ),
             ),
-            Image.asset(AppImages.personDetection, fit: BoxFit.cover),
+            Stack(
+              children: [
+                Image.asset(AppImages.personDetection, fit: BoxFit.cover),
+                Container(
+                  height: 28,
+                  width: 128,
+                  decoration: BoxDecoration(color: Color(0xFF0F1A2E)),
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Column(
@@ -86,7 +95,7 @@ class LocationHistory extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Image.asset(AppImages.askAI),
+                  AskAi(),
                     ],
                   )
                 ],

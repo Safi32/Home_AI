@@ -4,6 +4,7 @@ import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/alerts_widget.dart';
 import 'package:home_ai/widgets/todays_activity.dart';
+import 'package:home_ai/widgets/top_row.dart';
 import 'package:home_ai/widgets/user_details.dart';
 
 class LastSeenScreen extends StatelessWidget {
@@ -19,30 +20,7 @@ class LastSeenScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(Icons.arrow_back, color: Colors.black),
-                  ),
-
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        "Self",
-                        style: TextStyle(
-                          fontSize: AppTextStyles.heading4.fontSize,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Opacity(opacity: 0, child: Icon(Icons.arrow_back)),
-                ],
-              ),
+              TopRow(title: "Self", icon: Icons.arrow_back),
               SizedBox(height: 20),
               Row(
                 children: [
