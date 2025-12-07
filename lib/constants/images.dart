@@ -52,5 +52,14 @@ class AppImages {
   static const chair = "assets/images/chair.jpg";
   static const personDetections = "assets/images/person_detections.png";
   static const personDetection = "assets/images/person_Detection.png";
-  
+  static const refresh = "assets/images/refresh.png";
+  static const human = "assets/images/human.png";
+  static const dog = "assets/images/dog.jpg";
+  static const blackVideo = "assets/images/black_video.png";
+  static const personWalking = "assets/images/person_walking.png";
+  static const blackWifi = "assets/images/black_wifi.png";
+  static const blackSound = "assets/images/black_sound.png";
+  static const expand = "assets/images/expand.png";
+  static const sdHD = "assets/images/sd_hd.png";
+  static const blueFrame = "assets/images/blue_frame.png";
 }

@@ -33,11 +33,11 @@ class CustomBottomBar extends StatelessWidget {
     ),
   ];
 
-  final List<Widget> pages = const [
-    HomeScreen(),
+  final List<Widget> pages = [
+    const HomeScreen(),
     LivePage(),
-    EventsPage(),
-    Sparkles(),
+    const EventsPage(),
+    const Sparkles(),
   ];
 
   CustomBottomBar({super.key});

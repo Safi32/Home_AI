@@ -9,8 +9,10 @@ class LiveDetections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       children: [
+        // ===== Background Image =====
         ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: Image.asset(
@@ -29,6 +31,23 @@ class LiveDetections extends StatelessWidget {
         ),
         Positioned(
           left: 12,
+          top: 12,
+          child: Image.asset(AppImages.human, width: 28, height: 28),
+        ),
+        Positioned(
+          left: 44,
+          top: 12,
+          child: Image.asset(AppImages.dog, width: 28, height: 28),
+        ),
+        Positioned(
+          left: 76,
+          top: 12,
+          child: Image.asset(AppImages.mom, width: 28, height: 28),
+        ),
+
+        // ===== Bottom Info Card =====
+        Positioned(
+          left: 12,
           right: 12,
           bottom: 16,
           child: Stack(
@@ -36,7 +55,6 @@ class LiveDetections extends StatelessWidget {
             children: [
               Container(
                 height: 42,
-                width: 344,
                 decoration: BoxDecoration(
                   color: const Color(0xBF0F1A2E),
                   borderRadius: BorderRadius.circular(50),
@@ -46,9 +64,8 @@ class LiveDetections extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
+                      const Text(
                         'Living Room',
                         style: TextStyle(
                           color: Colors.white,
@@ -57,7 +74,7 @@ class LiveDetections extends StatelessWidget {
                           fontFamily: 'Poppins',
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
                         '2 minutes ago',
                         style: TextStyle(
@@ -70,6 +87,8 @@ class LiveDetections extends StatelessWidget {
                   ),
                 ),
               ),
+
+              // ===== Arrow Button =====
               Positioned(
                 right: 10,
                 top: 0,
@@ -77,11 +96,11 @@ class LiveDetections extends StatelessWidget {
                 child: Container(
                   height: 30,
                   width: 29,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: AppColors.primary,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_outward,
                     color: Colors.white,
                     size: 18,

@@ -5,6 +5,7 @@ import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/screens/camera_setting.dart';
 import 'package:home_ai/widgets/ask_ai.dart';
 import 'package:home_ai/widgets/todays_activity.dart';
+import 'package:home_ai/widgets/user_watching.dart';
 
 class LocationHistory extends StatelessWidget {
   const LocationHistory({super.key});
@@ -32,17 +33,85 @@ class LocationHistory extends StatelessWidget {
                     onTap: () {
                       Get.to(() => const CameraSetting());
                     },
-                    child: Icon(Icons.settings_outlined, color: Colors.black)),
+                    child: Icon(Icons.settings_outlined, color: Colors.black),
+                  ),
                 ],
               ),
             ),
             Stack(
               children: [
                 Image.asset(AppImages.personDetection, fit: BoxFit.cover),
-                Container(
-                  height: 28,
-                  width: 128,
-                  decoration: BoxDecoration(color: Color(0xFF0F1A2E)),
+                Positioned(
+                  top: 10,
+                  left: 20,
+                  child: Container(
+                    height: 28,
+                    width: 128,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Color(0xFF0F1A2E).withOpacity(0.6),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "2 mintues ago",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Image.asset(AppImages.refresh),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 50,
+                  left: 20,
+                  child: Image.asset(AppImages.sdHD),
+                ),
+                Positioned(
+                  right: 110,
+                  top: 10,
+                  child: UserWatching(imageUrl: AppImages.human),
+                ),
+                Positioned(
+                  right: 100,
+                  top: 10,
+                  child: UserWatching(imageUrl: AppImages.dog),
+                ),
+                Positioned(
+                  right: 90,
+                  top: 10,
+                  child: UserWatching(imageUrl: AppImages.mom),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Image.asset(AppImages.live),
+                ),
+                Positioned(
+                  top: 40,
+                  right: 10,
+                  child: Image.asset(AppImages.blackVideo),
+                ),
+                Positioned(
+                  top: 80,
+                  right: 10,
+                  child: Image.asset(AppImages.blackWifi),
+                ),
+                Positioned(
+                  top: 120,
+                  right: 10,
+                  child: Image.asset(AppImages.blackSound),
+                ),
+                Positioned(
+                  top: 160,
+                  right: 10,
+                  child: Image.asset(AppImages.personWalking),
+                ),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: Image.asset(AppImages.expand),
                 ),
               ],
             ),
@@ -94,10 +163,8 @@ class LocationHistory extends StatelessWidget {
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                  AskAi(),
-                    ],
-                  )
+                    children: [AskAi()],
+                  ),
                 ],
               ),
             ),
