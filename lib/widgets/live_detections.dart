@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/utils/colors.dart';
+import 'package:home_ai/widgets/detection_avatar.dart';
 
 class LiveDetections extends StatelessWidget {
-  const LiveDetections({super.key, required this.imageUrl});
+  const LiveDetections({
+    super.key,
+    required this.imageUrl,
+    this.showDetections = true,
+  });
 
   final String imageUrl;
+  final bool showDetections;
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
-        // ===== Background Image =====
         ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: Image.asset(
@@ -22,6 +26,7 @@ class LiveDetections extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
+
         Positioned(right: 10, top: 10, child: Image.asset(AppImages.live)),
         Positioned(right: 10, top: 40, child: Image.asset(AppImages.redVideo)),
         Positioned(
@@ -29,23 +34,25 @@ class LiveDetections extends StatelessWidget {
           top: 80,
           child: Image.asset(AppImages.accentFrame),
         ),
-        Positioned(
-          left: 12,
-          top: 12,
-          child: Image.asset(AppImages.human, width: 28, height: 28),
-        ),
-        Positioned(
-          left: 44,
-          top: 12,
-          child: Image.asset(AppImages.dog, width: 28, height: 28),
-        ),
-        Positioned(
-          left: 76,
-          top: 12,
-          child: Image.asset(AppImages.mom, width: 28, height: 28),
-        ),
 
-        // ===== Bottom Info Card =====
+        if (showDetections) ...[
+          Positioned(
+            left: 12,
+            top: 12,
+            child: DetectionAvatar(image: AppImages.human),
+          ),
+          Positioned(
+            left: 22,
+            top: 12,
+            child: DetectionAvatar(image: AppImages.dog),
+          ),
+          Positioned(
+            left: 33,
+            top: 12,
+            child: DetectionAvatar(image: AppImages.mom),
+          ),
+        ],
+
         Positioned(
           left: 12,
           right: 12,
@@ -78,7 +85,7 @@ class LiveDetections extends StatelessWidget {
                       Text(
                         '2 minutes ago',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white70,
                           fontSize: 10,
                           fontFamily: 'Poppins',
                         ),
@@ -87,8 +94,6 @@ class LiveDetections extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // ===== Arrow Button =====
               Positioned(
                 right: 10,
                 top: 0,
@@ -114,3 +119,4 @@ class LiveDetections extends StatelessWidget {
     );
   }
 }
+

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:home_ai/screens/ask_ai_screen.dart';
 import 'package:home_ai/screens/events_page.dart';
 import 'package:home_ai/screens/live_page.dart';
-import 'package:home_ai/screens/sparkles.dart';
+
 import 'package:home_ai/utils/colors.dart';
 import '../constants/images.dart';
 import '../screens/home_screen.dart';
@@ -29,7 +30,7 @@ class CustomBottomBar extends StatelessWidget {
     ),
     _BottomBarItem(
       icon: AppImages.sparkles,
-      label: '',
+      label: 'Ask AI',
     ),
   ];
 
@@ -37,7 +38,7 @@ class CustomBottomBar extends StatelessWidget {
     const HomeScreen(),
     LivePage(),
     const EventsPage(),
-    const Sparkles(),
+    const AskAiScreen(),
   ];
 
   CustomBottomBar({super.key});
@@ -65,7 +66,7 @@ class CustomBottomBar extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () => controller.currentIndex.value = index,
                     child: Container(
-                      decoration: isSelected && index != 3
+                      decoration: isSelected
                           ? BoxDecoration(
                               color: AppColors.primary,
                               borderRadius: BorderRadius.circular(12),

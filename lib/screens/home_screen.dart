@@ -196,8 +196,14 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    LiveDetections(imageUrl: AppImages.livingRoom),
-                    LiveDetections(imageUrl: AppImages.backyard),
+                    LiveDetections(
+                      imageUrl: AppImages.livingRoom,
+                      showDetections: false,
+                    ),
+                    LiveDetections(
+                      imageUrl: AppImages.backyard,
+                      showDetections: false,
+                    ),
                   ],
                 ),
               ],

@@ -62,4 +62,10 @@ class AppImages {
   static const expand = "assets/images/expand.png";
   static const sdHD = "assets/images/sd_hd.png";
   static const blueFrame = "assets/images/blue_frame.png";
+  static const cctv = "assets/images/camera_cctv.png";
+  static const addCamera = "assets/images/add_camera.png";
+  static const frontCamera = "assets/images/front_cctv.png";
+  static const filter = "assets/images/filter.png";
+  static const calendar = "assets/images/calendar.png";
+  static const timePast = "assets/images/time_past.png";
 }

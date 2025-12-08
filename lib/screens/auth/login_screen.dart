@@ -33,7 +33,6 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 /// Back Button
                 GestureDetector(
                   onTap: () => Get.back(),
@@ -111,7 +110,6 @@ class LoginScreen extends StatelessWidget {
 
                 SizedBox(height: 20),
 
-             
                 Obx(
                   () => CustomButton(
                     title: controller.isLoading.value
@@ -121,23 +119,35 @@ class LoginScreen extends StatelessWidget {
                     textColor: Colors.white,
                     foregroundColor: Colors.white,
                     onPressed: () async {
-                      if (emailController.text.isEmpty ||
-                          passwordController.text.isEmpty) {}
-
-                      bool success = await controller.loginUser(
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                      );
-
-                      if (success) {
-                        
-                        Get.offAll(() => OnBoardingScreen());
-                      }
+                      Get.to(() => const OnBoardingScreen());
                     },
                   ),
                 ),
-              
 
+                // Obx(
+                //   () => CustomButton(
+                //     title: controller.isLoading.value
+                //         ? "Logging in..."
+                //         : "Continue",
+                //     backgroundColor: AppColors.primary,
+                //     textColor: Colors.white,
+                //     foregroundColor: Colors.white,
+                //     onPressed: () async {
+                //       if (emailController.text.isEmpty ||
+                //           passwordController.text.isEmpty) {}
+
+                //       bool success = await controller.loginUser(
+                //         email: emailController.text.trim(),
+                //         password: passwordController.text.trim(),
+                //       );
+
+                //       if (success) {
+
+                //         Get.offAll(() => OnBoardingScreen());
+                //       }
+                //     },
+                //   ),
+                // ),
                 SizedBox(height: 20),
                 CustomDivider(text: "Login with"),
                 SizedBox(height: 20),
