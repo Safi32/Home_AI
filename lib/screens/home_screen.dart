@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/screens/add_new.dart';
@@ -22,6 +21,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
@@ -29,13 +29,6 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(AppImages.menu),
-                    Image.asset(AppImages.notification),
-                  ],
-                ),
                 const SizedBox(height: 20),
                 Container(
                   height: 80,

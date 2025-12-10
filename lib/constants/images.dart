@@ -68,4 +68,13 @@ class AppImages {
   static const filter = "assets/images/filter.png";
   static const calendar = "assets/images/calendar.png";
   static const timePast = "assets/images/time_past.png";
+  static const settings = "assets/images/settings.png";
+  static const editUser = "assets/images/edit_user.png";
+  static const object = "assets/images/object.png";
+  static const deviceManagement = "assets/images/device_management.png";
+  static const alert = "assets/images/alert.png";
+  static const helpSupport = "assets/images/help_support.png";
+  static const sharedAccess = "assets/images/shared_access.png";
+  static const privacyPolicy = "assets/images/privacy_policy.png";
+  static const signOut = "assets/images/sign_out.png";
 }

@@ -33,24 +33,13 @@ class _AskAiScreenState extends State<AskAiScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Row(children: [Image.asset(AppImages.timePast)]),
-                  Text(
-                    "Ask AI",
-                    style: TextStyle(
-                      fontSize: AppTextStyles.heading4.fontSize,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
+             
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

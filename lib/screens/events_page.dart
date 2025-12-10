@@ -18,22 +18,7 @@ class EventsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Image.asset(AppImages.menu)],
-                    ),
-                    Text(
-                      "Events & History",
-                      style: TextStyle(
-                        fontSize: AppTextStyles.heading4.fontSize,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
+              
                 SizedBox(height: 20),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,

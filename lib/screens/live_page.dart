@@ -26,33 +26,6 @@ class LivePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(AppImages.menu),
-
-                        Row(
-                          children: [
-                            Image.asset(AppImages.refresh),
-                            const SizedBox(width: 10),
-                            const Icon(Icons.settings_outlined, size: 20),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Text(
-                      "Live Cameras",
-                      style: TextStyle(
-                        fontSize: AppTextStyles.heading4.fontSize,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-
                 const SizedBox(height: 20),
                 SizedBox(
                   height: 40,
