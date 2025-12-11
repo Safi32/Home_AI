@@ -3,8 +3,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
+import 'package:home_ai/modal/sidebar_model.dart';
 import 'package:home_ai/screens/add_new_person.dart';
 import 'package:home_ai/screens/add_new_pet.dart';
+import 'package:home_ai/screens/device_management_screen.dart';
 import 'package:home_ai/screens/edit_screen.dart';
 import 'package:home_ai/screens/object_recognition.dart';
 import 'package:home_ai/utils/colors.dart';
@@ -16,6 +18,61 @@ class MySideMenu extends StatelessWidget {
 
   final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
 
+  final List<SidebarItem> sideBarItems = [
+    SidebarItem(
+      imageUrl: AppImages.deviceManagement,
+      name: "Device Management",
+      onPressed: () {
+        Get.to(() => const DeviceManagementScreen());
+      },
+    ),
+    SidebarItem(
+      imageUrl: AppImages.person,
+      name: "Person Management",
+      onPressed: () {},
+    ),
+    SidebarItem(
+      imageUrl: AppImages.label,
+      name: "Object Management",
+      onPressed: () {},
+    ),
+    SidebarItem(
+      imageUrl: AppImages.paw,
+      name: "Pet Management",
+      onPressed: () {},
+    ),
+    SidebarItem(
+      imageUrl: AppImages.settings,
+      name: "Setting",
+      onPressed: () {},
+    ),
+    SidebarItem(
+      imageUrl: AppImages.alert,
+      name: "Alert Center",
+      onPressed: () {},
+    ),
+    SidebarItem(
+      imageUrl: AppImages.helpSupport,
+      name: "Help & Support",
+      onPressed: () {},
+    ),
+    SidebarItem(
+      imageUrl: AppImages.sharedAccess,
+      name: "Shared Access",
+      onPressed: () {},
+    ),
+    SidebarItem(
+      imageUrl: AppImages.privacyPolicy,
+      name: "Privacy Setting",
+      onPressed: () {},
+    ),
+    SidebarItem(
+      imageUrl: AppImages.signOut,
+      name: "Sign Out",
+      onPressed: () {},
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -25,7 +82,6 @@ class MySideMenu extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Profile Card
             Container(
               height: 99,
               width: 267,
@@ -151,39 +207,17 @@ class MySideMenu extends StatelessWidget {
                   builder: (context, value, _) {
                     return ListView.separated(
                       padding: EdgeInsets.zero,
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: 10,
+                      itemCount: sideBarItems.length,
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 10),
                       itemBuilder: (context, index) {
+                        final item = sideBarItems[index];
                         return SidebarItems(
                           index: index,
                           selectedIndex: value,
-                          onTap: () => selectedIndex.value = index,
-                          imageUrl: [
-                            AppImages.deviceManagement,
-                            AppImages.person,
-                            AppImages.label,
-                            AppImages.paw,
-                            AppImages.settings,
-                            AppImages.alert,
-                            AppImages.helpSupport,
-                            AppImages.sharedAccess,
-                            AppImages.privacyPolicy,
-                            AppImages.signOut,
-                          ][index],
-                          text: [
-                            "Device Management",
-                            "Face Recognition",
-                            "Object Management",
-                            "Paw Management",
-                            "Settings",
-                            "Alert Center",
-                            "Help & Support",
-                            "Shared Access",
-                            "Privacy Setting",
-                            "Sign Out",
-                          ][index],
+                          onTap: item.onPressed,
+                          imageUrl: item.imageUrl,
+                          text: item.name,
                         );
                       },
                     );

@@ -5,17 +5,19 @@ import 'package:home_ai/utils/colors.dart';
 class CustomTextfield extends StatelessWidget {
   final String label;
   final String hintText;
-  final IconData icon;
-  final TextEditingController controller;
+  final IconData? icon;
+  final TextEditingController? controller;
   final bool obscureText;
+  final String? imageUrl;
 
   const CustomTextfield({
     super.key,
     required this.label,
     required this.hintText,
-    required this.icon,
-    required this.controller,
-    this.obscureText = false, // For password field
+    this.icon,
+    this.controller,
+    this.obscureText = false,
+    this.imageUrl,
   });
 
   @override
@@ -28,12 +30,11 @@ class CustomTextfield extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
-
-          /// LABEL WITH ICON
           label: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(icon, color: AppColors.primary),
+              imageUrl != null ? Image.asset(imageUrl!) : SizedBox.shrink(),
               const SizedBox(width: 6),
               Text(
                 label,
@@ -43,15 +44,15 @@ class CustomTextfield extends StatelessWidget {
               ),
             ],
           ),
-
-          /// HINT TEXT
           hintText: hintText,
           hintStyle: AppTextStyles.heading7.copyWith(
             color: Colors.grey.shade400,
           ),
-
-          /// BORDER STYLE
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: AppColors.primary),

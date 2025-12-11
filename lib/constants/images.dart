@@ -77,4 +77,12 @@ class AppImages {
   static const sharedAccess = "assets/images/shared_access.png";
   static const privacyPolicy = "assets/images/privacy_policy.png";
   static const signOut = "assets/images/sign_out.png";
+  static const takePicture = "assets/images/take_picture.png";
+  static const email = "assets/images/email.png";
+  static const lock = "assets/images/lock.png";
+  static const phone = "assets/images/phone.png";
+  static const cctvRight = "assets/images/cctv_right.png";
+  static const cameraLocation = "assets/images/camera_location.png";
+  static const cameraSettings = "assets/images/camera_setting.png";
+  static const scanner = "assets/images/scanner.png";
 }
