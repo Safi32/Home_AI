@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:home_ai/constants/images.dart';
-import 'package:home_ai/constants/text_styles.dart';
+import 'package:home_ai/screens/qr_code_screen.dart';
+import 'package:home_ai/utils/colors.dart';
+import 'package:home_ai/widgets/camera_component.dart';
+import 'package:home_ai/widgets/custom_button.dart';
+import 'package:home_ai/widgets/shadow_textfield.dart';
 import 'package:home_ai/widgets/title_subtitle_widget.dart';
 
 class AddNewCamera extends StatelessWidget {
@@ -12,33 +18,51 @@ class AddNewCamera extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 50),
+          padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleSubtitleWidget(
-                title: "Add New Camera",
-                subtitle: "Select a method to connect your camera to the app",
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Icon(Icons.arrow_back, color: Colors.black),
               ),
-              SizedBox(height: 20,),
-              SizedBox(
-                height: 114,
-                width: 130,
-                child: Card(
-                  color: Colors.white,
-                  elevation: 1,
-                  child: Column(
-                    spacing: 20,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(AppImages.scanner),
-                      Text("QR Code Scan",
-                        style: AppTextStyles.heading7.copyWith(
-                          fontWeight: FontWeight.w600
-                        )
-                      ),
-                    ],
-                  ),
+              SizedBox(height: 20),
+              Center(
+                child: TitleSubtitleWidget(
+                  title: "Add New Camera",
+                  subtitle: "Select a method to connect your camera to the app",
                 ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CameraComponent(
+                    imageUrl: AppImages.scanner,
+                    title: "QR Code Scan",
+                  ),
+                  CameraComponent(
+                    imageUrl: AppImages.blueWifi,
+                    title: "Wi-Fi Setup",
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              ShadowTextfield(
+                imageUrl: AppImages.keyboard,
+                hintText: "Enter Code Manually",
+              ),
+              SizedBox(height: 20),
+              CustomButton(
+                title: "Connect",
+                onPressed: () {
+                  Get.to(() => QrCodeScreen());
+                },
+                backgroundColor: AppColors.primary,
+                textColor: Colors.white,
+                foregroundColor: Colors.white,
               ),
             ],
           ),

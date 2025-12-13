@@ -8,7 +8,9 @@ import 'package:home_ai/screens/add_new_person.dart';
 import 'package:home_ai/screens/add_new_pet.dart';
 import 'package:home_ai/screens/device_management_screen.dart';
 import 'package:home_ai/screens/edit_screen.dart';
+import 'package:home_ai/screens/object_management.dart';
 import 'package:home_ai/screens/object_recognition.dart';
+import 'package:home_ai/screens/person_management_screen.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/add_new_drawer_widget.dart';
 import 'package:home_ai/widgets/sidebar_items.dart';
@@ -29,12 +31,16 @@ class MySideMenu extends StatelessWidget {
     SidebarItem(
       imageUrl: AppImages.person,
       name: "Person Management",
-      onPressed: () {},
+      onPressed: () {
+        Get.to(() => const PersonManagementScreen());
+      },
     ),
     SidebarItem(
       imageUrl: AppImages.label,
       name: "Object Management",
-      onPressed: () {},
+      onPressed: () {
+        Get.to(() => const ObjectManagement());
+      },
     ),
     SidebarItem(
       imageUrl: AppImages.paw,

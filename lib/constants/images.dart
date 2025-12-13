@@ -85,4 +85,9 @@ class AppImages {
   static const cameraLocation = "assets/images/camera_location.png";
   static const cameraSettings = "assets/images/camera_setting.png";
   static const scanner = "assets/images/scanner.png";
+  static const blueWifi = "assets/images/blue_wifi.png";
+  static const keyboard = "assets/images/keyboard.png";
+  static const qrScanner = "assets/images/qr_scanner.png";
+  static const bigCamera = "assets/images/big_camera.png";
+  static const greyWifi = "assets/images/grey_wifi.png";
 }

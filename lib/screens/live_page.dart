@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_ai/constants/images.dart';
-import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/controller/live_controller.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/add_camera.dart';

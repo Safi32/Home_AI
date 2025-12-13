@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
 
 class CameraComponent extends StatelessWidget {
-  const CameraComponent({super.key});
+  const CameraComponent({super.key, required this.imageUrl, required this.title});
 
+  final String imageUrl;
+  final String title;
   
 
   @override
@@ -19,9 +20,9 @@ class CameraComponent extends StatelessWidget {
           spacing: 20,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(AppImages.scanner),
+            Image.asset(imageUrl),
             Text(
-              "QR Code Scan",
+              title,
               style: AppTextStyles.heading7.copyWith(
                 fontWeight: FontWeight.w600,
               ),

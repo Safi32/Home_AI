@@ -43,7 +43,9 @@ class DeviceManagementWidget extends StatelessWidget {
                   color: Colors.white,
                   shape: BoxShape.circle,
                 ),
-                child: Center(child: Image.asset(imageUrl)),
+                child: Center(
+                  child: Image.asset(imageUrl, color: Colors.black),
+                ),
               ),
               SizedBox(width: 10),
               Text(text, style: textStyle),

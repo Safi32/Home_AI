@@ -4,6 +4,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/screens/add_new_camera.dart';
+import 'package:home_ai/screens/camera_setting.dart';
+import 'package:home_ai/screens/manage_existing_camera_screen.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/device_management_widget.dart';
 import 'package:home_ai/widgets/top_row.dart';
@@ -17,7 +19,7 @@ class DeviceManagementScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             children: [
               TopRow(title: "Device Management", icon: Icons.arrow_back),
@@ -36,7 +38,9 @@ class DeviceManagementScreen extends StatelessWidget {
               ),
               SizedBox(height: 40),
               DeviceManagementWidget(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => ManageExistingCameraScreen());
+                },
                 height: 50,
                 width: 364,
                 imageUrl: AppImages.cctvRight,
@@ -54,7 +58,9 @@ class DeviceManagementScreen extends StatelessWidget {
                 textStyle: AppTextStyles.heading6,
               ),
               DeviceManagementWidget(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => CameraSetting());
+                },
                 height: 50,
                 width: 364,
                 imageUrl: AppImages.cameraSettings,
