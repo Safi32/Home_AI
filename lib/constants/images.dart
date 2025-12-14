@@ -90,4 +90,5 @@ class AppImages {
   static const qrScanner = "assets/images/qr_scanner.png";
   static const bigCamera = "assets/images/big_camera.png";
   static const greyWifi = "assets/images/grey_wifi.png";
+  static const exit = "assets/images/exit.png";
 }

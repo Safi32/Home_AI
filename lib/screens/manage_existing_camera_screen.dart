@@ -19,7 +19,7 @@ class ManageExistingCameraScreen extends StatelessWidget {
           Column(
             spacing: 20,
             children: [
-                 ExistingCamera(),
+          ExistingCamera(),
            ExistingCamera(),
            ExistingCamera(),
            ExistingCamera(),

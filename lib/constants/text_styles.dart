@@ -26,6 +26,12 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     fontSize: 18,
   );
+  static const TextStyle bodySmall = TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.normal,
+    fontSize: 12,
+  );
+  
   static const TextStyle heading6 = TextStyle(
     fontFamily: 'Poppins',
 

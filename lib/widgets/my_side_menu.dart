@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -6,13 +8,20 @@ import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/modal/sidebar_model.dart';
 import 'package:home_ai/screens/add_new_person.dart';
 import 'package:home_ai/screens/add_new_pet.dart';
+import 'package:home_ai/screens/alert_screen.dart';
+
 import 'package:home_ai/screens/device_management_screen.dart';
 import 'package:home_ai/screens/edit_screen.dart';
 import 'package:home_ai/screens/object_management.dart';
 import 'package:home_ai/screens/object_recognition.dart';
 import 'package:home_ai/screens/person_management_screen.dart';
+import 'package:home_ai/screens/pet_management.dart';
+import 'package:home_ai/screens/shared_access.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/add_new_drawer_widget.dart';
+import 'package:home_ai/widgets/custom_button.dart';
+import 'package:home_ai/widgets/light_blue_button.dart';
+import 'package:home_ai/widgets/points_widget.dart';
 import 'package:home_ai/widgets/sidebar_items.dart';
 
 class MySideMenu extends StatelessWidget {
@@ -45,7 +54,9 @@ class MySideMenu extends StatelessWidget {
     SidebarItem(
       imageUrl: AppImages.paw,
       name: "Pet Management",
-      onPressed: () {},
+      onPressed: () {
+        Get.to(() => const PetManagement());
+      },
     ),
     SidebarItem(
       imageUrl: AppImages.settings,
@@ -55,7 +66,9 @@ class MySideMenu extends StatelessWidget {
     SidebarItem(
       imageUrl: AppImages.alert,
       name: "Alert Center",
-      onPressed: () {},
+      onPressed: () {
+        Get.to(() => const AlertScreen());
+      },
     ),
     SidebarItem(
       imageUrl: AppImages.helpSupport,
@@ -65,7 +78,9 @@ class MySideMenu extends StatelessWidget {
     SidebarItem(
       imageUrl: AppImages.sharedAccess,
       name: "Shared Access",
-      onPressed: () {},
+      onPressed: () {
+        Get.to(() => const SharedAccess());
+      },
     ),
     SidebarItem(
       imageUrl: AppImages.privacyPolicy,
@@ -75,7 +90,61 @@ class MySideMenu extends StatelessWidget {
     SidebarItem(
       imageUrl: AppImages.signOut,
       name: "Sign Out",
-      onPressed: () {},
+      onPressed: () {
+        showDialog(
+          context: Get.context!,
+          barrierColor: Colors.black54,
+          builder: (BuildContext context) {
+            return BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+              child: SizedBox(
+                height: 516,
+                width: 327,
+                child: Dialog(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(AppImages.exit, height: 141, width: 197),
+                        const SizedBox(height: 16),
+                        Text(
+                          "Sign Out Of IRIS AI?",
+                          style: AppTextStyles.heading4.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 16),
+                        PointsWidget(
+                          point1:
+                              "You will be logged out from your account on this device",
+                          point2:
+                              "Your cameras and alert will continue to function normally",
+                        ),
+                        const SizedBox(height: 24),
+                        CustomButton(
+                          title: "Sign Out",
+                          onPressed: () {},
+                          backgroundColor: AppColors.primary,
+                          textColor: Colors.white,
+                          foregroundColor: Colors.white,
+                        ),
+                        SizedBox(height: 10),
+                        LightBlueButton(text: "Cancel", onPressed: () {}),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
     ),
   ];
 
