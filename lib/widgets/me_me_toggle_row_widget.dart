@@ -5,10 +5,12 @@ class MeMeToggleRow extends StatefulWidget {
   final String title;
   final bool initialValue;
   final ValueChanged<bool> onChanged;
+  final String? subTitle;
 
   const MeMeToggleRow({
     super.key,
     required this.title,
+    this.subTitle,
     this.initialValue = false,
     required this.onChanged,
   });
@@ -31,12 +33,29 @@ class _MeMeToggleRowState extends State<MeMeToggleRow> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          widget.title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
+        Column(
+          spacing: 5,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              child: Text(
+                widget.title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            if (widget.subTitle != null)
+              Text(
+                widget.subTitle!,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+          ],
         ),
         Switch(
           value: isOn,
