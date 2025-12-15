@@ -60,7 +60,7 @@ class LivingRoomCameraSettings extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Image.asset(
-                                      AppImages.exit,
+                                      AppImages.refreshDialog,
                                       height: 141,
                                       width: 197,
                                     ),
@@ -116,7 +116,7 @@ class LivingRoomCameraSettings extends StatelessWidget {
                                                           MainAxisSize.min,
                                                       children: [
                                                         Image.asset(
-                                                          AppImages.exit,
+                                                          AppImages.success,
                                                           height: 141,
                                                           width: 197,
                                                         ),

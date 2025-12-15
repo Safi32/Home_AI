@@ -91,4 +91,7 @@ class AppImages {
   static const bigCamera = "assets/images/big_camera.png";
   static const greyWifi = "assets/images/grey_wifi.png";
   static const exit = "assets/images/exit.png";
+  static const wifiLock = "assets/images/wifi_lock.png";
+  static const refreshDialog = "assets/images/refresh_dialog.png";
+  static const success = "assets/images/success.png";
 }
