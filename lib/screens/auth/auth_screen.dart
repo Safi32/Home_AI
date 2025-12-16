@@ -20,7 +20,7 @@ class AuthScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.asset(AppImages.signUp),
+                Image.asset(AppImages.signUp, width: double.infinity,),
                 Positioned(
                   bottom: 80,
                   left: 20,
