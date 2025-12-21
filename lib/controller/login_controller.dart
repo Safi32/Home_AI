@@ -27,14 +27,13 @@ class LoginController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        print("asdads" + response.body);
+        
         final data = jsonDecode(response.body);
         session.saveSession(
           data["user"]["id"].toString(),
           data["token"],
           DateTime.now().add(Duration(minutes: 60)),
         );
-        
 
         Get.snackbar(
           "Success",
@@ -44,7 +43,7 @@ class LoginController extends GetxController {
           backgroundColor: Colors.green,
         );
 
-        return true; 
+        return true;
       } else {
         final data = jsonDecode(response.body);
         Get.snackbar(

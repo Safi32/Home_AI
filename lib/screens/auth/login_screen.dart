@@ -9,7 +9,6 @@ import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/custom_button.dart';
 import 'package:home_ai/widgets/custom_divider.dart';
 import 'package:home_ai/widgets/custom_textfield.dart';
-import 'package:home_ai/widgets/login_google.dart';
 import 'package:home_ai/controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -109,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: 20),
-
+                
                 Obx(
                   () => CustomButton(
                     title: controller.isLoading.value
@@ -119,39 +118,23 @@ class LoginScreen extends StatelessWidget {
                     textColor: Colors.white,
                     foregroundColor: Colors.white,
                     onPressed: () async {
-                      Get.to(() => const OnBoardingScreen());
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty) {}
+
+                      bool success = await controller.loginUser(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      );
+
+                      if (success) {
+                        Get.offAll(() => OnBoardingScreen());
+                      }
                     },
                   ),
                 ),
-
-                // Obx(
-                //   () => CustomButton(
-                //     title: controller.isLoading.value
-                //         ? "Logging in..."
-                //         : "Continue",
-                //     backgroundColor: AppColors.primary,
-                //     textColor: Colors.white,
-                //     foregroundColor: Colors.white,
-                //     onPressed: () async {
-                //       if (emailController.text.isEmpty ||
-                //           passwordController.text.isEmpty) {}
-
-                //       bool success = await controller.loginUser(
-                //         email: emailController.text.trim(),
-                //         password: passwordController.text.trim(),
-                //       );
-
-                //       if (success) {
-
-                //         Get.offAll(() => OnBoardingScreen());
-                //       }
-                //     },
-                //   ),
-                // ),
                 SizedBox(height: 20),
                 CustomDivider(text: "Login with"),
                 SizedBox(height: 20),
-                LoginGoogle(),
               ],
             ),
           ),

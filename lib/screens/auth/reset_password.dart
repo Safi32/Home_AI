@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:home_ai/constants/text_styles.dart';
-import 'package:home_ai/screens/auth/otp_screen.dart';
 import 'package:home_ai/widgets/custom_button.dart';
 import 'package:home_ai/widgets/custom_textfield.dart';
 
@@ -49,7 +48,7 @@ class ResetPassword extends StatelessWidget {
               CustomButton(
                 title: "Send Reset Link",
                 onPressed: () {
-                  Get.to(() => const OtpScreen());
+                  // Get.to(() => const OtpScreen( email: email.text.r,));
                 },
                 backgroundColor: Colors.blue,
                 textColor: Colors.white,

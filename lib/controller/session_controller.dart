@@ -51,16 +51,16 @@ class SessionController {
     this.expiryDate = expiryDate;
   }
 
-  void clearSession() async {
+  Future<void> clearSession() async {
     userId = null;
     token = null;
     expiryDate = null;
 
     const storage = FlutterSecureStorage();
-    await Future .wait([
+    await Future.wait([
       storage.delete(key: 'userId'),
       storage.delete(key: 'token'),
       storage.delete(key: 'expiryDate'),
-    ]); 
+    ]);
   }
 }

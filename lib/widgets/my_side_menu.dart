@@ -1,5 +1,3 @@
-
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +7,7 @@ import 'package:home_ai/modal/sidebar_model.dart';
 import 'package:home_ai/screens/add_new_person.dart';
 import 'package:home_ai/screens/add_new_pet.dart';
 import 'package:home_ai/screens/alert_screen.dart';
+import 'package:home_ai/screens/auth/login_screen.dart';
 import 'package:home_ai/screens/device_management_screen.dart';
 import 'package:home_ai/screens/edit_screen.dart';
 import 'package:home_ai/screens/object_management.dart';
@@ -23,14 +22,13 @@ import 'package:home_ai/widgets/custom_button.dart';
 import 'package:home_ai/widgets/light_blue_button.dart';
 import 'package:home_ai/widgets/points_widget.dart';
 import 'package:home_ai/widgets/sidebar_items.dart';
+import 'package:home_ai/controller/session_controller.dart';
+import 'package:home_ai/controller/login_controller.dart';
+
 
 class MySideMenu extends StatelessWidget {
   MySideMenu({super.key});
-
-  /// ---------------- STATE ----------------
   final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
-
-  /// ---------------- DATA ----------------
   final List<SidebarItem> sideBarItems = [
     SidebarItem(
       imageUrl: AppImages.deviceManagement,
@@ -121,20 +119,34 @@ class MySideMenu extends StatelessWidget {
                         const SizedBox(height: 24),
                         CustomButton(
                           title: "Sign Out",
-                          onPressed: () {
-                            Navigator.pop(context);
-                            showDialog(
-                              context: Get.context!,
-                              barrierColor: Colors.black54,
-                              builder: (BuildContext context) {
-                                return BackdropFilter(
-                                  filter: ImageFilter.blur(
-                                    sigmaX: 6,
-                                    sigmaY: 6,
-                                  ),
+                          onPressed: () async {
+                            try {
+                              Navigator.pop(context);
+                              debugPrint('Starting sign out process...');
+                              final loginController =
+                                  Get.find<LoginController>();
+                              final session = SessionController.instance;
+                              await session.clearSession();
+                              debugPrint('Session cleared');
+                              await loginController.logout();
+                              debugPrint('Login data cleared');
+                              debugPrint('Navigating to auth screen...');
+                              Get.offAll(() => LoginScreen());
+                            } catch (e) {
+                              debugPrint('Error during sign out: $e');
+                              if (e.toString().contains('not found')) {
+                                debugPrint(
+                                  'LoginController not found, navigating to auth screen...',
                                 );
-                              },
-                            );
+                                Get.offAll(() => LoginScreen());
+                              } else {
+                                Get.snackbar(
+                                  'Error',
+                                  'Failed to sign out: ${e.toString()}',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                              }
+                            }
                           },
                           backgroundColor: AppColors.primary,
                           textColor: Colors.white,
@@ -157,11 +169,9 @@ class MySideMenu extends StatelessWidget {
         );
       },
     ),
+  
   ];
 
- 
-
-  /// ---------------- UI ----------------
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -182,7 +192,6 @@ class MySideMenu extends StatelessWidget {
     );
   }
 
-  /// ---------------- PROFILE ----------------
   Widget _buildProfileCard() {
     return Container(
       height: 99,
@@ -225,7 +234,6 @@ class MySideMenu extends StatelessWidget {
     );
   }
 
-  /// ---------------- ADD NEW ----------------
   Widget _buildAddNewSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,7 +274,6 @@ class MySideMenu extends StatelessWidget {
     );
   }
 
-  /// ---------------- SIDEBAR LIST ----------------
   Widget _buildSidebarList(BuildContext context) {
     return Expanded(
       child: ValueListenableBuilder<int>(
@@ -294,4 +301,5 @@ class MySideMenu extends StatelessWidget {
       ),
     );
   }
+  
 }

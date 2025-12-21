@@ -10,7 +10,7 @@ class OtpFields extends StatelessWidget {
 
   const OtpFields({
     super.key,
-    this.length = 6,
+    this.length = 4,
     required this.onChanged,
     this.fieldWidth = 48,
     this.fieldSpacing = 12,
@@ -21,7 +21,7 @@ class OtpFields extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 65,
-      width: 350,
+      width: 300,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(length, (index) {

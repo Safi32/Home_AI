@@ -130,7 +130,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             Text(
                               controller.currentPage.value == totalPages - 1
                                   ? "Continue with setup"
-                                  : "Next",
+                                  : "Skip",
                               style: const TextStyle(
                                 fontSize: 14,
                                 color: Colors.black54,

@@ -9,13 +9,12 @@ import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/custom_button.dart';
 import 'package:home_ai/widgets/custom_divider.dart';
 import 'package:home_ai/widgets/custom_textfield.dart';
-import 'package:home_ai/widgets/login_google.dart';
 
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
 
-  final RegistrationController controller = Get.find<RegistrationController>();
+final RegistrationController controller = Get.put(RegistrationController());
 
   final fullName = TextEditingController();
   final email = TextEditingController();
@@ -114,15 +113,13 @@ class SignUpScreen extends StatelessWidget {
                         password: password.text.trim(),
                       );
 
-                      if (success) Get.to(() => const OtpScreen());
+                      if (success) Get.to(() => OtpScreen(email: email.text.trim(),),);
                     },
                   ),
                 ),
-
                 SizedBox(height: 20),
                 CustomDivider(text: "SignUp With"),
                 SizedBox(height: 20),
-                LoginGoogle(),
               ],
             ),
           ),

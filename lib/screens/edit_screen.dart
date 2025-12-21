@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
+import 'package:home_ai/controller/edit_profile_controller.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/custom_button.dart';
 import 'package:home_ai/widgets/custom_textfield.dart';
 import 'package:home_ai/widgets/top_row.dart';
 
 class EditScreen extends StatelessWidget {
-  const EditScreen({super.key});
+  EditScreen({super.key});
+
+  final EditProfileController controller = Get.put(EditProfileController());
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Padding(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TopRow(title: "Person Details", icon: Icons.arrow_back),
-              SizedBox(height: 30),
+              const TopRow(title: "Person Details", icon: Icons.arrow_back),
+
+              const SizedBox(height: 30),
+
+              /// Profile Avatar
               Center(
                 child: Stack(
                   children: [
@@ -29,9 +37,10 @@ class EditScreen extends StatelessWidget {
                       width: 84.25,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: Color(0xFF113351)),
+                        border: Border.all(color: const Color(0xFF113351)),
                       ),
-                      child: Center(child: Text("KS")),
+                      alignment: Alignment.center,
+                      child: const Text("KS"),
                     ),
                     Positioned(
                       bottom: 0,
@@ -41,41 +50,55 @@ class EditScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 40),
+
+              const SizedBox(height: 40),
               Text("Edit Profile", style: AppTextStyles.heading5),
-              SizedBox(height: 20),
-              Column(
-                spacing: 20,
-                children: [
-                  CustomTextfield(
-                    label: "Full Name",
-                    hintText: "Saim Ali Khan",
-                    imageUrl: AppImages.person,
-                  ),
-                  CustomTextfield(
-                    label: "Email",
-                    hintText: "name@gmail.com",
-                    imageUrl: AppImages.email,
-                  ),
-                  CustomTextfield(
-                    label: "Password",
-                    hintText: "at least 8 characters",
-                    imageUrl: AppImages.lock,
-                  ),
-                  CustomTextfield(
-                    label: "Phone Number",
-                    hintText: "(1234)-5678901",
-                    imageUrl: AppImages.phone,
-                  ),
-                ],
+              const SizedBox(height: 20),
+
+              /// Form Fields
+              CustomTextfield(
+                controller: controller.usernameController,
+                label: "Full Name",
+                hintText: "Saim Ali Khan",
+                imageUrl: AppImages.person,
               ),
-              SizedBox(height: 30),
-              CustomButton(
-                title: "Save Changes",
-                onPressed: () {},
-                backgroundColor: AppColors.primary,
-                textColor: Colors.white,
-                foregroundColor: Colors.white,
+
+              const SizedBox(height: 20),
+
+              CustomTextfield(
+                controller: controller.emailController,
+                label: "Email",
+                hintText: "name@gmail.com",
+                imageUrl: AppImages.email,
+              ),
+
+              const SizedBox(height: 20),
+
+              CustomTextfield(
+                controller: controller.passwordController,
+                label: "Password",
+                hintText: "At least 8 characters",
+                imageUrl: AppImages.lock,
+                obscureText: true,
+              ),
+
+              const SizedBox(height: 30),
+
+              /// Save Button
+              Obx(
+                () => CustomButton(
+                  title: controller.isLoading.value
+                      ? "Saving..."
+                      : "Save Changes",
+                  onPressed: () {
+                    controller.isLoading.value
+                        ? null
+                        : controller.updateProfile;
+                  },
+                  backgroundColor: AppColors.primary,
+                  textColor: Colors.white,
+                  foregroundColor: Colors.white,
+                ),
               ),
             ],
           ),

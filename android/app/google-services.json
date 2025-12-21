@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "740048834200",
+    "project_id": "irisai-4af18",
+    "storage_bucket": "irisai-4af18.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740048834200:android:1ea2f175a073ff882d0aed",
+        "android_client_info": {
+          "package_name": "com.example.home_ai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740048834200-v2qrj31ka8fsigntotasttqjjpocaccu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-YfraxiXtpupXZ4Krwk4qk0Q7oAYvLRc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740048834200-v2qrj31ka8fsigntotasttqjjpocaccu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
