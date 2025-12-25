@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_ai/constants/images.dart';
@@ -15,6 +16,8 @@ class EditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -24,30 +27,60 @@ class EditScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TopRow(title: "Person Details", icon: Icons.arrow_back),
-
+              TopRow(title: "Person Details", icon: Icons.arrow_back),
               const SizedBox(height: 30),
-
-              /// Profile Avatar
               Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      height: 79,
-                      width: 84.25,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: const Color(0xFF113351)),
+                child: GestureDetector(
+                  onTap: controller.pickImage,
+                  child: Stack(
+                    children: [
+                      Obx(() {
+                        final imagePath = controller.profileImagePath.value;
+
+                        if (imagePath.isNotEmpty) {
+                          return Container(
+                            height: 84,
+                            width: 84,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFF113351),
+                              ),
+                              image: DecorationImage(
+                                image: FileImage(File(imagePath)),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        }
+                        return Container(
+                          height: 84,
+                          width: 84,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: const Color(0xFF113351)),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            controller.usernameController.text.isNotEmpty
+                                ? controller.usernameController.text
+                                      .substring(0, 1)
+                                      .toUpperCase()
+                                : "U",
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      }),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Image.asset(AppImages.takePicture),
                       ),
-                      alignment: Alignment.center,
-                      child: const Text("KS"),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Image.asset(AppImages.takePicture),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
 
@@ -55,11 +88,10 @@ class EditScreen extends StatelessWidget {
               Text("Edit Profile", style: AppTextStyles.heading5),
               const SizedBox(height: 20),
 
-              /// Form Fields
               CustomTextfield(
                 controller: controller.usernameController,
                 label: "Full Name",
-                hintText: "Saim Ali Khan",
+                hintText: "Enter your full name",
                 imageUrl: AppImages.person,
               ),
 
@@ -68,7 +100,7 @@ class EditScreen extends StatelessWidget {
               CustomTextfield(
                 controller: controller.emailController,
                 label: "Email",
-                hintText: "name@gmail.com",
+                hintText: "Enter your email",
                 imageUrl: AppImages.email,
               ),
 
@@ -84,7 +116,6 @@ class EditScreen extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              /// Save Button
               Obx(
                 () => CustomButton(
                   title: controller.isLoading.value

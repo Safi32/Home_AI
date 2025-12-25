@@ -1,12 +1,32 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_ai/constants/api_constant.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationController extends GetxController {
   var isLoading = false.obs;
   var otpSent = false.obs;
+
+  Future<void> saveUserLocally({
+    required String username,
+    required String email,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', username);
+    await prefs.setString('email', email);
+  }
+
+  Future<Map<String, String?>> getSavedUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    return {
+      "username": prefs.getString('username'),
+      "email": prefs.getString('email'),
+    };
+  }
 
   Future<bool> registerUser({
     required String username,
@@ -14,34 +34,79 @@ class RegistrationController extends GetxController {
     required String password,
   }) async {
     try {
+      if (username.isEmpty || email.isEmpty || password.isEmpty) {
+        Get.snackbar(
+          "Error",
+          "Please fill in all fields",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return false;
+      }
+
+      if (!GetUtils.isEmail(email)) {
+        Get.snackbar(
+          "Error",
+          "Please enter a valid email",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return false;
+      }
+
+      if (password.length < 6) {
+        Get.snackbar(
+          "Error",
+          "Password must be at least 6 characters",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return false;
+      }
+
       isLoading.value = true;
 
-      final response = await http.post(
-        Uri.parse(ApiConstants.register),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-          "username": username,
-          "email": email,
-          "password": password,
-        }),
-      );
+      final response = await http
+          .post(
+            Uri.parse(ApiConstants.register),
+            headers: {"Content-Type": "application/json"},
+            body: jsonEncode({
+              "username": username.trim(),
+              "email": email.trim().toLowerCase(),
+              "password": password,
+            }),
+          )
+          .timeout(const Duration(seconds: 30));
 
-      if (response.statusCode == 201 || response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+      log("Register Response: ${response.body}");
+
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        /// SAVE USER LOCALLY HERE
+        await saveUserLocally(
+          username: username.trim(),
+          email: email.trim().toLowerCase(),
+        );
+
+        otpSent.value = true;
+
         Get.snackbar(
           "Success",
-          data["message"] ?? "OTP sent to your email",
+          data["message"] ?? "OTP sent successfully",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
-        otpSent.value = true;
+
         return true;
       } else {
-        final data = jsonDecode(response.body);
         Get.snackbar(
           "Error",
-          data["message"] ?? "Failed to register",
+          data["message"] ?? "Registration failed",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.red,
           colorText: Colors.white,
@@ -50,8 +115,8 @@ class RegistrationController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        "Exception",
-        e.toString(),
+        "Error",
+        "Something went wrong",
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
@@ -61,6 +126,8 @@ class RegistrationController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  /* ---------------- VERIFY OTP ---------------- */
 
   Future<bool> verifyOtp({required String email, required String otp}) async {
     try {
@@ -72,8 +139,9 @@ class RegistrationController extends GetxController {
         body: jsonEncode({"email": email, "otp": otp}),
       );
 
+      final data = jsonDecode(response.body);
+
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
         Get.snackbar(
           "Success",
           data["message"] ?? "OTP Verified",
@@ -83,7 +151,6 @@ class RegistrationController extends GetxController {
         );
         return true;
       } else {
-        final data = jsonDecode(response.body);
         Get.snackbar(
           "Error",
           data["message"] ?? "Invalid OTP",
@@ -95,7 +162,7 @@ class RegistrationController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        "Exception",
+        "Error",
         e.toString(),
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,

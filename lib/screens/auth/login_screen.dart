@@ -10,6 +10,7 @@ import 'package:home_ai/widgets/custom_button.dart';
 import 'package:home_ai/widgets/custom_divider.dart';
 import 'package:home_ai/widgets/custom_textfield.dart';
 import 'package:home_ai/controller/login_controller.dart';
+import 'package:home_ai/widgets/login_google.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -48,8 +49,6 @@ class LoginScreen extends StatelessWidget {
                   style: AppTextStyles.heading7.copyWith(color: Colors.grey),
                 ),
                 SizedBox(height: 40),
-
-                /// Email & Password
                 CustomTextfield(
                   label: "Email",
                   hintText: "name@gmail.com",
@@ -135,6 +134,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 CustomDivider(text: "Login with"),
                 SizedBox(height: 20),
+                LoginGoogle(),
               ],
             ),
           ),

@@ -1,36 +1,108 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_ai/constants/api_constant.dart';
+// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class EditProfileController extends GetxController {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  final RxBool isLoading = false.obs;
+  final username = ''.obs;
+  final email = ''.obs;
+  final isLoading = false.obs;
+  final profileImagePath = ''.obs;
 
- 
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    loadSavedUser();
+
+    usernameController.addListener(() {
+      username.value = usernameController.text.trim();
+    });
+
+    emailController.addListener(() {
+      email.value = emailController.text.trim();
+    });
+  }
+
+  Future<void> loadSavedUser() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final savedUsername = prefs.getString('username') ?? '';
+    final savedEmail = prefs.getString('email') ?? '';
+
+    usernameController.text = savedUsername;
+    emailController.text = savedEmail;
+
+    username.value = savedUsername;
+    email.value = savedEmail;
+
+    print("Prefilled Username: $savedUsername");
+    print("Prefilled Email: $savedEmail");
+  }
+
+  Future<void> pickImage() async {
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        profileImagePath.value = image.path;
+      }
+    } catch (e) {
+      _showError('Failed to pick image');
+    }
+  }
+
+  Widget getProfileImage({double size = 60}) {
+    return Obx(() {
+      if (profileImagePath.value.isNotEmpty) {
+        return ClipOval(
+          child: Image.file(
+            File(profileImagePath.value),
+            width: size,
+            height: size,
+            fit: BoxFit.cover,
+          ),
+        );
+      }
+
+      return ClipOval(
+        child: Image.asset(
+          'assets/images/human.png',
+          width: size,
+          height: size,
+          fit: BoxFit.cover,
+        ),
+      );
+    });
+  }
+
   bool _isValidEmail(String email) {
-    return RegExp(
-      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-    ).hasMatch(email);
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
   }
 
   bool validate() {
-    if (usernameController.text.trim().isEmpty) {
+    if (username.value.isEmpty) {
       _showError("Full name is required");
       return false;
     }
 
-    if (emailController.text.trim().isEmpty) {
+    if (email.value.isEmpty) {
       _showError("Email is required");
       return false;
     }
 
-    if (!_isValidEmail(emailController.text.trim())) {
+    if (!_isValidEmail(email.value)) {
       _showError("Enter a valid email address");
       return false;
     }
@@ -51,13 +123,10 @@ class EditProfileController extends GetxController {
 
       final response = await http.put(
         Uri.parse(ApiConstants.editProfile),
-        headers: {
-          "Content-Type": "application/json",
-          // "Authorization": "Bearer YOUR_TOKEN"
-        },
+        headers: {"Content-Type": "application/json"},
         body: jsonEncode({
-          "name": usernameController.text.trim(),
-          "email": emailController.text.trim(),
+          "name": username.value,
+          "email": email.value,
           "password": passwordController.text.trim(),
         }),
       );
@@ -69,7 +138,7 @@ class EditProfileController extends GetxController {
       } else {
         _showError(data["message"] ?? "Update failed");
       }
-    } catch (e) {
+    } catch (_) {
       _showError("Server error. Please try again");
     } finally {
       isLoading.value = false;

@@ -24,7 +24,7 @@ import 'package:home_ai/widgets/points_widget.dart';
 import 'package:home_ai/widgets/sidebar_items.dart';
 import 'package:home_ai/controller/session_controller.dart';
 import 'package:home_ai/controller/login_controller.dart';
-
+import 'package:home_ai/controller/edit_profile_controller.dart';
 
 class MySideMenu extends StatelessWidget {
   MySideMenu({super.key});
@@ -123,8 +123,9 @@ class MySideMenu extends StatelessWidget {
                             try {
                               Navigator.pop(context);
                               debugPrint('Starting sign out process...');
-                              final loginController =
-                                  Get.find<LoginController>();
+                              final loginController = Get.put(
+                                LoginController(),
+                              );
                               final session = SessionController.instance;
                               await session.clearSession();
                               debugPrint('Session cleared');
@@ -169,7 +170,6 @@ class MySideMenu extends StatelessWidget {
         );
       },
     ),
-  
   ];
 
   @override
@@ -193,26 +193,46 @@ class MySideMenu extends StatelessWidget {
   }
 
   Widget _buildProfileCard() {
+    final editController = Get.put(EditProfileController());
+
     return Container(
-      height: 99,
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
+
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         children: [
-          ClipOval(child: Image.asset(AppImages.human, width: 60, height: 60)),
-          const SizedBox(width: 10),
+          editController.getProfileImage(size: 60),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Ahmad Ali", style: AppTextStyles.heading5),
-                const Text(
-                  "Albertstevano@gmail.com",
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                Obx(
+                  () => Text(
+                    editController.username.value.isNotEmpty
+                        ? editController.username.value
+                        : "Guest User",
+                    style: AppTextStyles.heading5,
+                  ),
+                ),
+                Obx(
+                  () => Text(
+                    editController.email.value.isNotEmpty
+                        ? editController.email.value
+                        : "user@example.com",
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 SizedBox(
@@ -223,7 +243,10 @@ class MySideMenu extends StatelessWidget {
                       backgroundColor: AppColors.primary,
                       padding: EdgeInsets.zero,
                     ),
-                    child: const Text("Edit", style: TextStyle(fontSize: 10)),
+                    child: const Text(
+                      "Edit",
+                      style: TextStyle(fontSize: 10, color: Colors.white),
+                    ),
                   ),
                 ),
               ],
@@ -246,6 +269,7 @@ class MySideMenu extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
+            spacing: 10,
             children: [
               AddNewDrawerWidget(
                 imageUrl: AppImages.person,
@@ -301,5 +325,4 @@ class MySideMenu extends StatelessWidget {
       ),
     );
   }
-  
 }

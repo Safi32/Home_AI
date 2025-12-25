@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/utils/colors.dart';
 
@@ -18,7 +17,7 @@ class LoginGoogle extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(AppImages.googleLogo),
+          Image.asset(AppImages.googleLogo),
           SizedBox(width: 12),
           Text(
             "Continue with Google",

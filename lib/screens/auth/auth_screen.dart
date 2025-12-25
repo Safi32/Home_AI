@@ -6,7 +6,6 @@ import 'package:home_ai/screens/auth/login_screen.dart';
 import 'package:home_ai/screens/auth/sign_up_screen.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/custom_button.dart';
-import 'package:home_ai/widgets/custom_divider.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -58,9 +57,6 @@ class AuthScreen extends StatelessWidget {
                     textColor: AppColors.primary,
                     foregroundColor: Colors.white,
                   ),
-                  SizedBox(height: 20),
-                  CustomDivider(),
-                  SizedBox(height: 20),
                 ],
               ),
             ),
