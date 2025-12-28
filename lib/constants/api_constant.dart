@@ -10,6 +10,8 @@ class ApiConstants {
   static const String verifyOTP = "$baseUrl/api/users/verify-otp";
   static const String login = "$baseUrl/api/users/login";
   static const String editProfile = "$baseUrl/api/users/profile";
+  static const String sendOTP = "$baseUrl/api/users/send-otp";
+  static const String resetPassword = "$baseUrl/api/users/reset-password";
 
   // Helper method to check if the server is reachable
   static Future<bool> isServerReachable() async {

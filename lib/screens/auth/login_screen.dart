@@ -90,7 +90,7 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ),
                       TextButton(
-                        onPressed: () => Get.to(() => const ResetPassword()),
+                        onPressed: () => Get.to(() => ResetPassword()),
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                           minimumSize: Size(0, 0),
