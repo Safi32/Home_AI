@@ -7,6 +7,8 @@ import 'package:home_ai/controller/session_controller.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
+
+
 class LoginController extends GetxController {
   var isLoading = false.obs;
 
