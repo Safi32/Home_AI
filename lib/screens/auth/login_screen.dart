@@ -134,7 +134,11 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 CustomDivider(text: "Login with"),
                 SizedBox(height: 20),
-                LoginGoogle(),
+                LoginGoogle(
+                  onSuccess: () {
+                    Get.offAll(() => OnBoardingScreen());
+                  },
+                ),
               ],
             ),
           ),

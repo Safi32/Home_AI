@@ -123,9 +123,8 @@ class MySideMenu extends StatelessWidget {
                             try {
                               Navigator.pop(context);
                               debugPrint('Starting sign out process...');
-                              final loginController = Get.put(
-                                LoginController(),
-                              );
+                              final loginController =
+                                  Get.find<LoginController>();
                               final session = SessionController.instance;
                               await session.clearSession();
                               debugPrint('Session cleared');
@@ -193,7 +192,8 @@ class MySideMenu extends StatelessWidget {
   }
 
   Widget _buildProfileCard() {
-    final editController = Get.put(EditProfileController());
+    final editController = Get.find<EditProfileController>();
+    final loginController = Get.find<LoginController>();
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -220,16 +220,16 @@ class MySideMenu extends StatelessWidget {
               children: [
                 Obx(
                   () => Text(
-                    editController.username.value.isNotEmpty
-                        ? editController.username.value
+                    loginController.loggedInUser != null
+                        ? loginController.loggedInUser.displayName
                         : "Guest User",
                     style: AppTextStyles.heading5,
                   ),
                 ),
                 Obx(
                   () => Text(
-                    editController.email.value.isNotEmpty
-                        ? editController.email.value
+                    loginController.loggedInUser != null
+                        ? loginController.loggedInUser.email
                         : "user@example.com",
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),

@@ -1,19 +1,21 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:home_ai/constants/api_constant.dart';
 import 'package:home_ai/controller/session_controller.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
-
-
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
 
   final GetStorage storage = GetStorage();
   final session = SessionController.instance;
+
+  var loggedInUser = null;
 
   Future<bool> loginUser({
     required String email,
@@ -29,7 +31,6 @@ class LoginController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        
         final data = jsonDecode(response.body);
         session.saveSession(
           data["user"]["id"].toString(),
@@ -68,6 +69,32 @@ class LoginController extends GetxController {
       return false;
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<bool> login() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+
+      await googleSignIn.initialize();
+
+      final GoogleSignInAccount? user = await googleSignIn.authenticate();
+
+      if (user == null) return false;
+
+      final GoogleSignInAuthentication userAuth = user.authentication;
+
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: userAuth.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      loggedInUser = FirebaseAuth.instance.currentUser;
+      return loggedInUser != null;
+    } catch (e) {
+      debugPrint("Google login error: $e");
+      return false;
     }
   }
 
