@@ -220,17 +220,15 @@ class MySideMenu extends StatelessWidget {
               children: [
                 Obx(
                   () => Text(
-                    loginController.loggedInUser != null
-                        ? loginController.loggedInUser.displayName
-                        : "Guest User",
+                    loginController.loggedInUser.value?.displayName ??
+                        "Guest User",
                     style: AppTextStyles.heading5,
                   ),
                 ),
                 Obx(
                   () => Text(
-                    loginController.loggedInUser != null
-                        ? loginController.loggedInUser.email
-                        : "user@example.com",
+                    loginController.loggedInUser.value?.email ??
+                        "user@example.com",
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ),

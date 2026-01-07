@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/controller/login_controller.dart';
 import 'package:home_ai/utils/colors.dart';

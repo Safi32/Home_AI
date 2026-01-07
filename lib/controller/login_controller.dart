@@ -15,7 +15,7 @@ class LoginController extends GetxController {
   final GetStorage storage = GetStorage();
   final session = SessionController.instance;
 
-  var loggedInUser = null;
+  var loggedInUser = Rxn<User>();
 
   Future<bool> loginUser({
     required String email,
@@ -90,8 +90,8 @@ class LoginController extends GetxController {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      loggedInUser = FirebaseAuth.instance.currentUser;
-      return loggedInUser != null;
+      loggedInUser.value = FirebaseAuth.instance.currentUser;
+      return loggedInUser.value != null;
     } catch (e) {
       debugPrint("Google login error: $e");
       return false;
