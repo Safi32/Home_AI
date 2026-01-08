@@ -15,7 +15,7 @@ import 'package:home_ai/widgets/login_google.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final LoginController controller = Get.put(LoginController());
+  final LoginController controller = Get.find<LoginController>();
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();

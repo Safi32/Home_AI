@@ -20,10 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final session = SessionController.instance;
     Future.delayed(const Duration(seconds: 2), () async {
       await session.loadSession();
-      if (session.userId != null &&
-          session.token != null &&
-          session.expiryDate != null &&
-          session.expiryDate!.isAfter(DateTime.now())) {
+      if (session.hasValidSession) {
         Get.offAll(() => CustomBottomBar());
       } else {
         Get.offAll(() => const AuthScreen());

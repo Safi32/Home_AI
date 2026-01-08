@@ -194,6 +194,7 @@ class MySideMenu extends StatelessWidget {
   Widget _buildProfileCard() {
     final editController = Get.find<EditProfileController>();
     final loginController = Get.find<LoginController>();
+    const double avatarSize = 60;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -212,7 +213,23 @@ class MySideMenu extends StatelessWidget {
       ),
       child: Row(
         children: [
-          editController.getProfileImage(size: 60),
+          Obx(() {
+            final url = loginController.photoUrl.value;
+            if (url != null && url.isNotEmpty) {
+              return ClipOval(
+                child: Image.network(
+                  url,
+                  width: avatarSize,
+                  height: avatarSize,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) {
+                    return editController.getProfileImage(size: avatarSize);
+                  },
+                ),
+              );
+            }
+            return editController.getProfileImage(size: avatarSize);
+          }),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -220,15 +237,17 @@ class MySideMenu extends StatelessWidget {
               children: [
                 Obx(
                   () => Text(
-                    loginController.loggedInUser.value?.displayName ??
-                        "Guest User",
+                    (loginController.displayName.value?.isNotEmpty ?? false)
+                        ? loginController.displayName.value!
+                        : "Guest User",
                     style: AppTextStyles.heading5,
                   ),
                 ),
                 Obx(
                   () => Text(
-                    loginController.loggedInUser.value?.email ??
-                        "user@example.com",
+                    (loginController.email.value?.isNotEmpty ?? false)
+                        ? loginController.email.value!
+                        : "user@example.com",
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ),

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:home_ai/constants/api_constant.dart';
 import 'package:home_ai/controller/session_controller.dart';
@@ -12,10 +11,23 @@ import 'package:http/http.dart' as http;
 class LoginController extends GetxController {
   var isLoading = false.obs;
 
-  final GetStorage storage = GetStorage();
   final session = SessionController.instance;
 
   var loggedInUser = Rxn<User>();
+  final displayName = RxnString();
+  final email = RxnString();
+  final photoUrl = RxnString();
+
+  @override
+  void onInit() {
+    super.onInit();
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+    loggedInUser.value = firebaseUser;
+
+    displayName.value = firebaseUser?.displayName ?? session.displayName;
+    email.value = firebaseUser?.email ?? session.email;
+    photoUrl.value = firebaseUser?.photoURL ?? session.photoUrl;
+  }
 
   Future<bool> loginUser({
     required String email,
@@ -32,11 +44,26 @@ class LoginController extends GetxController {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        session.saveSession(
+        final user = data["user"];
+        final dynamic rawName = user is Map<String, dynamic>
+            ? (user["name"] ?? user["full_name"] ?? user["username"])
+            : null;
+        final dynamic rawEmail =
+            user is Map<String, dynamic> ? user["email"] : null;
+
+        final String? nameString = rawName?.toString();
+        final String? emailString = (rawEmail ?? email).toString();
+
+        await session.saveSession(
           data["user"]["id"].toString(),
           data["token"],
-          DateTime.now().add(Duration(minutes: 60)),
+          DateTime.now().add(const Duration(minutes: 60)),
+          displayName: nameString,
+          email: emailString,
         );
+
+        displayName.value = nameString;
+        this.email.value = emailString;
 
         Get.snackbar(
           "Success",
@@ -78,11 +105,15 @@ class LoginController extends GetxController {
 
       await googleSignIn.initialize();
 
-      final GoogleSignInAccount? user = await googleSignIn.authenticate();
+      final GoogleSignInAccount? googleUser = await googleSignIn.authenticate();
 
-      if (user == null) return false;
+      if (googleUser == null) return false;
 
-      final GoogleSignInAuthentication userAuth = user.authentication;
+      final googleDisplayName = googleUser.displayName;
+      final googleEmail = googleUser.email;
+      final googlePhotoUrl = googleUser.photoUrl;
+
+      final GoogleSignInAuthentication userAuth = googleUser.authentication;
 
       final OAuthCredential credential = GoogleAuthProvider.credential(
         idToken: userAuth.idToken,
@@ -90,22 +121,52 @@ class LoginController extends GetxController {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      loggedInUser.value = FirebaseAuth.instance.currentUser;
-      return loggedInUser.value != null;
+      final firebaseUser = FirebaseAuth.instance.currentUser;
+      loggedInUser.value = firebaseUser;
+
+      displayName.value = firebaseUser?.displayName ?? googleDisplayName;
+      email.value = firebaseUser?.email ?? googleEmail;
+      photoUrl.value = firebaseUser?.photoURL ?? googlePhotoUrl;
+
+      if (firebaseUser != null) {
+        final tokenResult = await firebaseUser.getIdTokenResult();
+        final idToken = tokenResult.token;
+        final expiry = tokenResult.expirationTime ??
+            DateTime.now().add(const Duration(hours: 1));
+        if (idToken != null) {
+          await session.saveSession(
+            firebaseUser.uid,
+            idToken,
+            expiry,
+            displayName: displayName.value,
+            email: email.value,
+            photoUrl: photoUrl.value,
+          );
+        }
+      }
+      return firebaseUser != null;
+    } on GoogleSignInException catch (e) {
+      debugPrint("Google login error: $e");
+      return false;
     } catch (e) {
       debugPrint("Google login error: $e");
       return false;
     }
   }
 
-  bool isLoggedIn() {
-    final token = storage.read("token");
-    return token != null;
-  }
+  bool isLoggedIn() => session.hasValidSession;
 
   Future<void> logout() async {
-    await storage.remove("token");
-    await storage.remove("user");
+    await session.clearSession();
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (_) {}
+
+    loggedInUser.value = null;
+    displayName.value = null;
+    email.value = null;
+    photoUrl.value = null;
+
     Get.snackbar(
       "Success",
       "Logged out successfully",
@@ -113,6 +174,6 @@ class LoginController extends GetxController {
     );
   }
 
-  String? getToken() => storage.read("token");
-  Map<String, dynamic>? getUser() => storage.read("user");
+  String? getToken() => session.token;
+  Map<String, dynamic>? getUser() => null;
 }

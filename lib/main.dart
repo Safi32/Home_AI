@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:home_ai/binding.dart';
+import 'package:home_ai/controller/session_controller.dart';
 import 'package:home_ai/firebase_options.dart';
 import 'package:home_ai/screens/splash_screen.dart';
 // ignore: depend_on_referenced_packages
@@ -11,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
+  await SessionController.instance.loadSession();
   runApp(MyApp());
 }
 
