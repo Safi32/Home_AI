@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
@@ -33,15 +32,14 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// Back Button
                 GestureDetector(
                   onTap: () => Get.back(),
                   child: Icon(Icons.arrow_back, color: Colors.black),
                 ),
-                SizedBox(height: 30),
-
-                Center(child: SvgPicture.asset(AppImages.loginLogo)),
-                SizedBox(height: 50),
+              
+                
+                Center(child: Image.asset(AppImages.authLogo)),
+                SizedBox(height: 20),
 
                 Text("Welcome Back", style: AppTextStyles.heading3),
                 Text(

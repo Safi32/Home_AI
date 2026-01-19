@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_ai/constants/text_styles.dart';
 import 'package:home_ai/controller/registeration_controller.dart';
-import 'package:home_ai/screens/auth/login_screen.dart';
+import 'package:home_ai/screens/on_boarding_screen.dart';
 import 'package:home_ai/utils/colors.dart';
 import 'package:home_ai/widgets/custom_button.dart';
 import 'package:home_ai/widgets/otp_fields.dart';
@@ -37,7 +37,7 @@ class _OtpScreenState extends State<OtpScreen> {
       bool success = await _controller.verifyOtp(email: widget.email, otp: otp);
 
       if (success) {
-        Get.offAll(() => LoginScreen());
+        Get.offAll(() => OnBoardingScreen());
         Get.snackbar(
           "Success",
           "Account verified successfully!",
@@ -148,13 +148,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
               if (_controller.isLoading.value)
-                Container(
-                  color: Colors.black.withOpacity(0.5),
-                  child: const Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  ),
+                const Center(child: CircularProgressIndicator(),
                 ),
             ],
           ),

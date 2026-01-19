@@ -48,8 +48,9 @@ class LoginController extends GetxController {
         final dynamic rawName = user is Map<String, dynamic>
             ? (user["name"] ?? user["full_name"] ?? user["username"])
             : null;
-        final dynamic rawEmail =
-            user is Map<String, dynamic> ? user["email"] : null;
+        final dynamic rawEmail = user is Map<String, dynamic>
+            ? user["email"]
+            : null;
 
         final String? nameString = rawName?.toString();
         final String? emailString = (rawEmail ?? email).toString();
@@ -131,7 +132,8 @@ class LoginController extends GetxController {
       if (firebaseUser != null) {
         final tokenResult = await firebaseUser.getIdTokenResult();
         final idToken = tokenResult.token;
-        final expiry = tokenResult.expirationTime ??
+        final expiry =
+            tokenResult.expirationTime ??
             DateTime.now().add(const Duration(hours: 1));
         if (idToken != null) {
           await session.saveSession(

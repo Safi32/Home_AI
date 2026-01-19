@@ -22,35 +22,30 @@ class NotificationSettingsScreen extends StatelessWidget {
               ),
               SizedBox(height: 20,),
 
-               MeMeToggleRow(
+              MeMeToggleRow(
                 title: 'Intruder Alerts',
                 subTitle: 'Alerts when a person enters restricted zones',
-                onChanged:(value) {} ,
+                onChanged: (value) {},
               ),
               SizedBox(height: 20,),
 
-               MeMeToggleRow(
-                title: 'Desaster Alerts',
-                subTitle: 'Fire, Smoke, Water Leak, Structural Risk.',
-                onChanged:(value) {} ,
+              MeMeToggleRow(
+                title: 'Disaster Alerts',
+                subTitle: 'Fire, smoke, water leak, structural risk.',
+                onChanged: (value) {},
               ),
               SizedBox(height: 20,),
-               MeMeToggleRow(
-                title: 'Desaster Alerts',
-                subTitle: 'Fire, Smoke, Water Leak, Structural Risk.',
-                onChanged:(value) {} ,
-              ),
-              SizedBox(height: 20,),
-               MeMeToggleRow(
+              MeMeToggleRow(
                 title: 'Task Recovery Alerts',
-                subTitle: 'Camera Reconnect, Restart, Or\nSelf-Diagnostics Update',
-                onChanged:(value) {} ,
+                subTitle:
+                    'Camera reconnect, restart, or\nself-diagnostics update',
+                onChanged: (value) {},
               ),
               SizedBox(height: 20,),
-               MeMeToggleRow(
+              MeMeToggleRow(
                 title: 'Object Movement Alerts',
-                subTitle: 'Notify When Object is Moved.',
-                onChanged:(value) {} ,
+                subTitle: 'Notify when an object is moved.',
+                onChanged: (value) {},
               ),
               SizedBox(height: 20,),
               MeMeToggleRow(

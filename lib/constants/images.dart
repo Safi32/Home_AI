@@ -94,4 +94,5 @@ class AppImages {
   static const wifiLock = "assets/images/wifi_lock.png";
   static const refreshDialog = "assets/images/refresh_dialog.png";
   static const success = "assets/images/success.png";
+  static const authLogo = "assets/images/auth_logo.png";
 }

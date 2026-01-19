@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
@@ -39,8 +38,10 @@ final RegistrationController controller = Get.put(RegistrationController());
                 ),
                 SizedBox(height: 20),
 
-                Center(child: SvgPicture.asset(AppImages.loginLogo)),
-                SizedBox(height: 30),
+                
+
+                Center(child: Image.asset(AppImages.authLogo)),
+                SizedBox(height: 20),
 
                 Text("Create Your Account", style: AppTextStyles.heading3),
                 Text(

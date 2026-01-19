@@ -28,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(height: 20),
               customSettingsTile(() {
                 Get.to(() => NotificationSettingsScreen());
-              }, 'Notofication Settings'),
+              }, 'Notification Settings'),
               customSettingsTile(() {
                 Get.to(() => PrivacyPermissionsScreen());
               }, 'Privacy & Permissions'),
