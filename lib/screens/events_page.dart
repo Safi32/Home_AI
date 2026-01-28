@@ -1,15 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
+import 'package:home_ai/controller/events_controller.dart';
 import 'package:home_ai/widgets/events_history_widgets.dart';
 import 'package:home_ai/widgets/todays_activity.dart';
 
-class EventsPage extends StatelessWidget {
+class EventsPage extends StatefulWidget {
   const EventsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<EventsPage> createState() => _EventsPageState();
+}
 
+class _EventsPageState extends State<EventsPage> {
+  final EventsController eventsController = Get.find<EventsController>();
+
+  @override
+  void initState() {
+    super.initState();
+    eventsController.fetchAllEvents();
+  }
+
+  String _getEventImage(String eventType) {
+    switch (eventType.toLowerCase()) {
+      case 'person':
+      case 'person detected':
+        return AppImages.user;
+      case 'motion':
+      case 'movement':
+        return AppImages.electric;
+      case 'object':
+      case 'object movement':
+        return AppImages.keys;
+      default:
+        return AppImages.electric;
+    }
+  }
+
+  String _formatDate(DateTime dateTime) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final eventDate = DateTime(dateTime.year, dateTime.month, dateTime.day);
+
+    if (eventDate == today) {
+      return "Today";
+    } else if (eventDate == today.subtract(Duration(days: 1))) {
+      return "Yesterday";
+    } else {
+      return "${dateTime.day}/${dateTime.month}/${dateTime.year}";
+    }
+  }
+
+  String _formatTime(DateTime dateTime) {
+    return "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final GlobalKey _filterKey = GlobalKey();
 
     return SafeArea(
@@ -72,61 +120,62 @@ class EventsPage extends StatelessWidget {
                 ),
                 Text("Today", style: AppTextStyles.heading7),
                 SizedBox(height: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 20,
-                  children: [
-                    TodaysActivity(
-                      imageUrl: AppImages.user,
-                      title: "Person Detected - Living Room",
-                      subtitle: "Ali detected moving in Living Room",
-                      time: "5:31 PM",
-                      backgroundColor: Colors.white,
-                      enableShadow: true,
-                    ),
-                    TodaysActivity(
-                      imageUrl: AppImages.user,
-                      title: "Person Detected - Living Room",
-                      subtitle: "Ali detected moving in Living Room",
-                      time: "5:31 PM",
-                      backgroundColor: Colors.white,
-                      enableShadow: true,
-                    ),
-                    TodaysActivity(
-                      imageUrl: AppImages.user,
-                      title: "Person Detected - Living Room",
-                      subtitle: "Ali detected moving in Living Room",
-                      time: "5:31 PM",
-                      backgroundColor: Colors.white,
-                      enableShadow: true,
-                    ),
-                    Text("Yestartday"),
-                    TodaysActivity(
-                      imageUrl: AppImages.user,
-                      title: "Person Detected - Living Room",
-                      subtitle: "Ali detected moving in Living Room",
-                      time: "5:31 PM",
-                      backgroundColor: Colors.white,
-                      enableShadow: true,
-                    ),
-                    TodaysActivity(
-                      imageUrl: AppImages.user,
-                      title: "Person Detected - Living Room",
-                      subtitle: "Ali detected moving in Living Room",
-                      time: "5:31 PM",
-                      backgroundColor: Colors.white,
-                      enableShadow: true,
-                    ),
-                    TodaysActivity(
-                      imageUrl: AppImages.user,
-                      title: "Person Detected - Living Room",
-                      subtitle: "Ali detected moving in Living Room",
-                      time: "5:31 PM",
-                      backgroundColor: Colors.white,
-                      enableShadow: true,
-                    ),
-                  ],
-                ),
+                Obx(() {
+                  if (eventsController.isLoading.value) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (eventsController.allEvents.isEmpty) {
+                    return Column(
+                      children: [
+                        TodaysActivity(
+                          imageUrl: AppImages.user,
+                          title: "No Events Found",
+                          subtitle: "No events have been recorded",
+                          time: "Now",
+                          backgroundColor: Colors.white,
+                          enableShadow: true,
+                        ),
+                      ],
+                    );
+                  }
+
+                  // Group events by date
+                  final Map<String, List<dynamic>> eventsByDate = {};
+                  for (var event in eventsController.allEvents) {
+                    final dateKey = _formatDate(event.createdAt);
+                    if (!eventsByDate.containsKey(dateKey)) {
+                      eventsByDate[dateKey] = [];
+                    }
+                    eventsByDate[dateKey]!.add(event);
+                  }
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 20,
+                    children: eventsByDate.entries.map((entry) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(entry.key, style: AppTextStyles.heading7),
+                          ...entry.value
+                              .map(
+                                (event) => TodaysActivity(
+                                  imageUrl: _getEventImage(event.eventType),
+                                  title:
+                                      "${event.eventType} - ${event.zone ?? 'Unknown'}",
+                                  subtitle: event.eventDescription,
+                                  time: _formatTime(event.createdAt),
+                                  backgroundColor: Colors.white,
+                                  enableShadow: true,
+                                ),
+                              )
+                              .toList(),
+                        ],
+                      );
+                    }).toList(),
+                  );
+                }),
               ],
             ),
           ),

@@ -10,6 +10,10 @@ class ApiConstants {
   static const String editProfile = "$baseUrl/api/users/profile";
   static const String sendOTP = "$baseUrl/api/users/send-otp";
   static const String resetPassword = "$baseUrl/api/users/reset-password";
+  static const String chat =
+      "https://mistakes-nest-favourites-sea.trycloudflare.com/api/chat";
+  static const String events =
+      "https://mistakes-nest-favourites-sea.trycloudflare.com/api/events";
 
   static Future<bool> isServerReachable() async {
     try {

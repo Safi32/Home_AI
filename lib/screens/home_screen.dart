@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_ai/constants/images.dart';
 import 'package:home_ai/constants/text_styles.dart';
+import 'package:home_ai/controller/events_controller.dart';
 import 'package:home_ai/screens/add_new.dart';
 import 'package:home_ai/screens/last_seen_screen.dart';
 import 'package:home_ai/screens/object_movement.dart';
@@ -14,8 +15,41 @@ import 'package:home_ai/widgets/row_widget.dart';
 import 'package:home_ai/widgets/todays_activity.dart';
 import 'package:home_ai/widgets/user_details.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final EventsController eventsController = Get.put(EventsController());
+
+  @override
+  void initState() {
+    super.initState();
+    eventsController.fetchCurrentEvents();
+  }
+
+  String _getEventImage(String eventType) {
+    switch (eventType.toLowerCase()) {
+      case 'person':
+      case 'person detected':
+        return AppImages.user;
+      case 'motion':
+      case 'movement':
+        return AppImages.electric;
+      case 'object':
+      case 'object movement':
+        return AppImages.keys;
+      default:
+        return AppImages.electric;
+    }
+  }
+
+  String _formatTime(DateTime dateTime) {
+    return "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,29 +196,39 @@ class HomeScreen extends StatelessWidget {
                   subtitle: "See Full History",
                 ),
                 SizedBox(height: 20),
-                Column(
-                  spacing: 10,
-                  children: [
-                    TodaysActivity(
-                      imageUrl: AppImages.user,
-                      title: "Person Detected - Living Room",
-                      subtitle: "Ali detected moving in Living Room",
-                      time: "5:31 PM",
-                    ),
-                    TodaysActivity(
-                      imageUrl: AppImages.electric,
-                      title: "Person Detected - Living Room",
-                      subtitle: "Ali detected moving in Living Room",
-                      time: "10:17 AM",
-                    ),
-                    TodaysActivity(
-                      imageUrl: AppImages.electric,
-                      title: "Person Detected - Living Room",
-                      subtitle: "Ali detected moving in Living Room",
-                      time: "10:17 AM",
-                    ),
-                  ],
-                ),
+                Obx(() {
+                  if (eventsController.isLoading.value) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (eventsController.currentEvents.isEmpty) {
+                    return Column(
+                      children: [
+                        TodaysActivity(
+                          imageUrl: AppImages.electric,
+                          title: "No Current Events",
+                          subtitle: "All systems are quiet",
+                          time: "Now",
+                        ),
+                      ],
+                    );
+                  }
+
+                  return Column(
+                    spacing: 10,
+                    children: eventsController.currentEvents.take(3).map((
+                      event,
+                    ) {
+                      return TodaysActivity(
+                        imageUrl: _getEventImage(event.eventType),
+                        title:
+                            "${event.eventType} - ${event.zone ?? 'Unknown'}",
+                        subtitle: event.eventDescription,
+                        time: _formatTime(event.createdAt),
+                      );
+                    }).toList(),
+                  );
+                }),
                 SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
